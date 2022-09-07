@@ -21,7 +21,7 @@
 
         <Label>Interests:</Label>
         
-        <div>
+        <div required>
             <input type="checkbox" value="Art" v-model="interests">
             <label>Art & Design</label>
             <input type="checkbox" value="Jewellery" v-model="interests">

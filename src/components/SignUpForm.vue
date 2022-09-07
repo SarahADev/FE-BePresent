@@ -12,30 +12,41 @@
         <input type="email" required v-model="email">
 
         <label>Password:</label>
-    <input type="password" required v-model="password" />
-    <div v-if="passwordError" class="error">{{ passwordError }} </div>
+        <input type="password" required v-model="password">
+        <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
         <label for="">Date of Birth:</label>
-        <input type="date" required v-model="dob">
+        <div class="dob">
+        <input type="day" v-model="day">
+        <p>/</p>
+        <input type="month" v-model="month">
+        <p>/</p>
+        <input type="year" v-model="year">
+        <!-- <div v-if="yearError" class="error">{{ yearError }}</div> -->
+    
+        <!-- <input type="date" required v-model="dob"> -->
+        </div>
+        <p class="date-eg">format: day/month/year</p>
+        <p class="date-eg">example: 1/1/1990</p>
 
         <Label>Interests:</Label>
-        <div required>
-            <input type="checkbox" value="Art" v-model="interests">
-            <label>Art & Design</label>
-            <input type="checkbox" value="Jewellery" v-model="interests">
-            <label>Jewellery</label>
-            <input type="checkbox" value="Homeware" v-model="interests">
-            <label>Homeware</label>
-            <input type="checkbox" value="Clothing" v-model="interests">
-            <label>Clothing</label>
-            <input type="checkbox" value="Cooking" v-model="interests">
-            <label>Cooking</label>
-            <input type="checkbox" value="Entertainment" v-model="interests">
-            <label>Entertainment</label>
-            <input type="checkbox" value="DIY Crafts" v-model="interests">
-            <label>DIY Crafts</label>
-            <input type="checkbox" value="Movies" v-model="interests">
-            <label>Movies</label>
+        <div class="interest-list" required>
+            <ul>
+                <input type="checkbox" value="art-and-collectibles" v-model="interests">
+                <label>Art & Collectibles</label>
+                <input type="checkbox" value="jewelry-and-accessories" v-model="interests">
+                <label>Jewelry & Accessories</label>
+                <input type="checkbox" value="home-and-living" v-model="interests">
+                <label>Home & Living</label>
+                <input type="checkbox" value="clothing-and-shoes" v-model="interests">
+                <label>Clothing & Shoes</label>
+                <input type="checkbox" value="Cooking" v-model="interests">
+                <label>Cooking</label>
+                <input type="checkbox" value="toys-and-entertainment" v-model="interests">
+                <label>Toys & Entertainment</label>
+            </ul>
+            <!-- 'jewelry-and-accessories', 'clothing-and-shoes', 'home-and-living', 'wedding-and-party', 'toys-and-entertainment', 'art-and-collectibles' -->
+            
         </div>
 
         <br>
@@ -58,7 +69,9 @@
     <p>last name: {{ lastName }}</p>
     <p>Email: {{ email }}</p>
     <p>Password: {{ password }}</p>
-    <p>Date of Birth: {{dob}}</p>
+    <!-- <p>PasswordError: {{passwordError}}</p>
+    <p>yearError: {{yearError}}</p> -->
+    <p>Date of Birth: {{day}} / {{month}} / {{year}}</p>
     <p>Terms Accepted: {{terms}}</p>
     <p>Preferences: {{interests}}</p>
 </template>
@@ -71,18 +84,24 @@
                 lastName: '',
                 email: '',
                 password: '',
-                dob: '',
+                day: '',
+                month: '',
+                year: '',
                 reminders: true,
                 terms: false,
                 interests:[],
-                passwordError: ''
+                passwordError: '',
+                // yearError: ''
             }
         },
         methods: {
-           handleSubmit() {
+            handleSubmit() {
       this.passwordError = this.password.length > 5 ? 
-      '' : 'Password must be at least 6 chars long'
-    },
+      '' : 'Password must be at least 6 characters long'
+    //   this.yearError = this.year.length = 4 ? 
+    //   '' : console.log('Year must be at least 4 numbers long')
+            
+            }
         }
     }
 </script>
@@ -134,6 +153,28 @@
     }
     .submit {
         text-align: center;
+    }
+    .error {
+        color:red;
+        font-size: 0.6em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
+
+    }
+    .dob {
+        display: flex;
+        align-content: center;
+
+
+    }
+    .date-eg {
+        
+        color: rgb(184, 184, 184);
+        font-size: 0.6em;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: bold;
     }
 
 </style>
