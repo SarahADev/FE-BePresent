@@ -2,8 +2,8 @@
   <nav>
   <router-link to="/">Home</router-link> |
     <router-link to="/login">Login</router-link> |
-    <router-link to="/user-profile">Profile</router-link> |
-   <!--  <router-link to="/calendar">Calendar</router-link> -->
+    <router-link to="/signup">Sign Up</router-link> |
+  <router-link to="/profile">UserProfile</router-link>  
   </nav>
   <router-view/>
 </template>
