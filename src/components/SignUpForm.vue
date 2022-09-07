@@ -17,11 +17,11 @@
 
         <label for="">Date of Birth:</label>
         <div class="dob">
-        <input type="day" v-model="day">
+        <input type="text" v-model="day">
         <p>/</p>
-        <input type="month" v-model="month">
+        <input type="text" v-model="month">
         <p>/</p>
-        <input type="year" v-model="year">
+        <input type="text" v-model="year">
         <!-- <div v-if="yearError" class="error">{{ yearError }}</div> -->
     
         <!-- <input type="date" required v-model="dob"> -->
@@ -29,7 +29,7 @@
         <p class="date-eg">format: day/month/year</p>
         <p class="date-eg">example: 1/1/1990</p>
 
-        <Label>Interests:</Label>
+        <label>Interests:</label>
         <div class="interest-list" required>
             <ul>
                 <input type="checkbox" value="art-and-collectibles" v-model="interests">
@@ -61,7 +61,7 @@
             <label>Recieve email reminders for your upcoming events</label>
         </div>
 
-        <button class="submit" @click="handleClick">Create Account</button>
+        <button class="submit" @click="addUser()">Create Account</button>
     
         
     </form>
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import axios from 'axios' 
     export default {
         data() {
             return {
@@ -101,6 +102,21 @@
     //   this.yearError = this.year.length = 4 ? 
     //   '' : console.log('Year must be at least 4 numbers long')
             
+            },
+            async addUser() {
+                let result = await axios.post("https://be-present.fly.dev/users", {
+                    first_name:this.firstName,
+                    last_name:this.lastName,
+                    email:this.email,
+                    birth_day:this.day,
+                    birth_month:this.month,
+                    birth_year:this.year,
+                    password:this.password,
+                    interests:this.interests
+
+                })
+                console.log(result, this.firstName, this.month, this.lastName);
+                
             }
         }
     }
