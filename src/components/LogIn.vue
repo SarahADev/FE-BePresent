@@ -8,12 +8,12 @@
     <input type="password" required v-model="password" />
     <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
-    <button class="submit" @click="handleClick">Create Account</button>
+    <button class="submit" @click="handleClick">Submit</button>
 
  
   </form>
-  <p>Email: {{ email }}</p>
-  <p>Password: {{ password }}</p>
+  <!-- <p>Email: {{ email }}</p>
+  <p>Password: {{ password }}</p> -->
 </template>
 
 <script>
