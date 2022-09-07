@@ -1,19 +1,12 @@
 <template>
-  <h1>BePresent</h1>
-  <SignIn />
-  <SignUpForm />
+  <nav>
+  <router-link to="/">Home</router-link> |
+    <router-link to="/login">Login</router-link> |
+    <router-link to="/user-profile">Profile</router-link> |
+    <router-link to="/calendar">Calendar</router-link>
+  </nav>
+  <router-view/>
 </template>
-
-<script>
-import SignUpForm from './components/SignUpForm.vue';
-
-export default {
-  name: 'App',
-  components: {
-    SignUpForm
-}
-}
-</script>
 
 <style>
 #app {
@@ -22,10 +15,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
-body {
-  margin: 0;
-  background-color: #eee ;
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

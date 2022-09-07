@@ -1,12 +1,12 @@
 <template>
     <form @submit="handleSubmit">
-        <h2>Sign Up</h2>
+        <h2>Create Account</h2>
         <label for="">Email:</label>
         <input type="email" required v-model="email">
 
-        <label for="">Password:</label>
-        <input type="password" required v-model="password">
-        <!-- <div v-if="passwordError" class="error">{{ passwordError }}</div> -->
+        <label>Password:</label>
+    <input type="password" required v-model="password" />
+    <div v-if="passwordError" class="error">{{ passwordError }} </div>
 
         <label for="">Date of Birth:</label>
         <input type="date" required v-model="dob">
@@ -71,20 +71,14 @@
                 reminders: true,
                 terms: false,
                 interests:[],
-                // passwordError: ''
+                passwordError: ''
             }
         },
         methods: {
-            handleSubmit() {
-                // //validate password
-                // this.passwordError = this.password.length > 5 ? 
-                // '' : 'Password must be atleast 6 characters long'
-                
-                console.log('email: ', this.email)
-                console.log('password: ', this.password)
-                console.log('date: ', this.dob)
-                console.log('interests: ', this.interests)
-            }
+           handleSubmit() {
+      this.passwordError = this.password.length > 5 ? 
+      '' : 'Password must be at least 6 chars long'
+    },
         }
     }
 </script>
