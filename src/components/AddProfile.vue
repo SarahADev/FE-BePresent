@@ -1,25 +1,27 @@
 <template>
     <form @submit="handleSubmit">
-        <h2>Create Account</h2>
-
+        <h2>Create a Profile</h2>
         <label for="">First Name</label>
         <input type="name" required v-model="firstName">
 
         <label for="">Last Name</label>
         <input type="name" required v-model="lastName">
 
-        <label for="">Email:</label>
-        <input type="email" required v-model="email">
-
-        <label>Password:</label>
-    <input type="password" required v-model="password" />
-    <div v-if="passwordError" class="error">{{ passwordError }} </div>
-
         <label for="">Date of Birth:</label>
         <input type="date" required v-model="dob">
 
+        <label>Relation:</label>
+        <select v-model="role">
+            <option value="family">Family</option>
+            <option value="parent">Parent</option>
+            <option value="friend">Friend</option>
+            <option value="coworker">Coworker</option>
+            <option value="partner">Partner</option>
+        </select>
+
         <Label>Interests:</Label>
-        <div required>
+        
+        <div>
             <input type="checkbox" value="Art" v-model="interests">
             <label>Art & Design</label>
             <input type="checkbox" value="Jewellery" v-model="interests">
@@ -37,29 +39,19 @@
             <input type="checkbox" value="Movies" v-model="interests">
             <label>Movies</label>
         </div>
+        <br>
+        <p>We will reccomend you gifts based on their interests</p>
 
         <br>
 
-        <div class="terms">
-            <input type="checkbox" v-model="terms" required>
-            <label>Accept Terms and Conditions</label>
-        </div>
-
-        <div class="terms">
-            <input type="checkbox" v-model="reminders">
-            <label>Recieve email reminders for your upcoming events</label>
-        </div>
-
-        <button class="submit" @click="handleClick">Create Account</button>
+        <button class="submit" @click="handleClick">Add</button>
     
         
     </form>
     <p>first name: {{ firstName }}</p>
     <p>last name: {{ lastName }}</p>
-    <p>Email: {{ email }}</p>
-    <p>Password: {{ password }}</p>
     <p>Date of Birth: {{dob}}</p>
-    <p>Terms Accepted: {{terms}}</p>
+    <p>Relation: {{relation}}</p>
     <p>Preferences: {{interests}}</p>
 </template>
 
@@ -69,20 +61,23 @@
             return {
                 firstName: '',
                 lastName: '',
-                email: '',
-                password: '',
                 dob: '',
+                relation: 'Family',
                 reminders: true,
                 terms: false,
                 interests:[],
-                passwordError: ''
+
             }
         },
         methods: {
-           handleSubmit() {
-      this.passwordError = this.password.length > 5 ? 
-      '' : 'Password must be at least 6 chars long'
-    },
+            handleSubmit() {
+                
+                console.log('email: ', this.email)
+                console.log('password: ', this.password)
+                console.log('date: ', this.dob)
+                console.log('relation', this.relation)
+                console.log('interests: ', this.interests)
+            }
         }
     }
 </script>
@@ -134,6 +129,11 @@
     }
     .submit {
         text-align: center;
+    }
+    p{
+        font-size: 0.8em;
+        text-transform: uppercase;
+        color: #4e937a;
     }
 
 </style>
