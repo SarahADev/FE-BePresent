@@ -1,5 +1,6 @@
 <template>
   <h1>BePresent</h1>
+  <SignIn />
   <SignUpForm />
 </template>
 
