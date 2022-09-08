@@ -4,13 +4,11 @@
     <label for="">Email:</label>
     <input type="email" required v-model="email" />
 
-       <label>Password:</label>
+    <label>Password:</label>
     <input type="password" required v-model="password" />
     <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
-    <button class="submit" @click="handleClick">Submit</button>
-
- 
+    <button class="submit" @click="checkUser">Submit</button>
   </form>
   <!-- <p>Email: {{ email }}</p>
   <p>Password: {{ password }}</p> -->
@@ -27,13 +25,20 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.passwordError = this.password.length > 5 ? 
+      this.passwordError = this.password.length > 5 ?
       '' : 'Password must be at least 6 chars long'
     },
     },
+    async checkUser() {
+    let result = await axios.get("https://be-present.fly.dev/users", {
+        
+        }
+  
+       )}
   }
-
 </script>
+
+
 
 <style>
 form {
@@ -66,11 +71,10 @@ button {
   text-align: center;
 }
 
-
 .error {
-    color: red;
-    margin-top: 10px;
-    font-weight: bold;
-    font-size: 0.8e;
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 0.8e;
 }
 </style>
