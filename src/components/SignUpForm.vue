@@ -21,13 +21,13 @@
         <p>/</p>
         <input type="text" v-model="month">
         <p>/</p>
-        <input type="year" v-model="year">
+        <input type="text" v-model="year">
         <!-- <div v-if="yearError" class="error">{{ yearError }}</div> -->
     
         <!-- <input type="date" required v-model="dob"> -->
         </div>
         <p class="date-eg">format: day/month/year</p>
-        <p class="date-eg">example: 1/1/1990</p>
+        <p class="date-eg">example: 01/01/1990</p>
 
         <label>Interests:</label>
         <div class="interest-list" required>
@@ -65,15 +65,15 @@
     
         
     </form>
-    <p>first name: {{ firstName }}</p>
+    <!-- <p>first name: {{ firstName }}</p>
     <p>last name: {{ lastName }}</p>
     <p>Email: {{ email }}</p>
-    <p>Password: {{ password }}</p>
+    <p>Password: {{ password }}</p> -->
     <!-- <p>PasswordError: {{passwordError}}</p>
     <p>yearError: {{yearError}}</p> -->
-    <p>Date of Birth: {{day}} / {{month}} / {{year}}</p>
+    <!-- <p>Date of Birth: {{day}} / {{month}} / {{year}}</p>
     <p>Terms Accepted: {{terms}}</p>
-    <p>Preferences: {{interests}}</p>
+    <p>Preferences: {{interests}}</p> -->
 </template>
 
 <script>
