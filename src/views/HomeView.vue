@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <img alt="gift photo" src="../assets/gift.jpg">
-   <!--  <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+  <nav>
+    <router-link to="/login">Login</router-link>
+  </nav>
+  <router-view/>
   </div>
 </template>
 

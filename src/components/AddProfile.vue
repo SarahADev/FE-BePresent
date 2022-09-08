@@ -22,22 +22,16 @@
         <Label>Interests:</Label>
         
         <div required>
-            <input type="checkbox" value="Art" v-model="interests">
-            <label>Art & Design</label>
-            <input type="checkbox" value="Jewellery" v-model="interests">
-            <label>Jewellery</label>
-            <input type="checkbox" value="Homeware" v-model="interests">
-            <label>Homeware</label>
-            <input type="checkbox" value="Clothing" v-model="interests">
-            <label>Clothing</label>
-            <input type="checkbox" value="Cooking" v-model="interests">
-            <label>Cooking</label>
-            <input type="checkbox" value="Entertainment" v-model="interests">
-            <label>Entertainment</label>
-            <input type="checkbox" value="DIY Crafts" v-model="interests">
-            <label>DIY Crafts</label>
-            <input type="checkbox" value="Movies" v-model="interests">
-            <label>Movies</label>
+            <input type="checkbox" value="art-and-collectibles" v-model="interests">
+            <label>Art & Collectibles</label>
+            <input type="checkbox" value="jewelry-and-accessories" v-model="interests">
+            <label>Jewelry & Accessories</label>
+            <input type="checkbox" value="home-and-living" v-model="interests">
+            <label>Home & Living</label>
+            <input type="checkbox" value="clothing-and-shoes" v-model="interests">
+            <label>Clothing & Shoes</label>
+            <input type="checkbox" value="toys-and-entertainment" v-model="interests">                
+            <label>Toys & Entertainment</label>
         </div>
         <br>
         <p>We will reccomend you gifts based on their interests</p>
