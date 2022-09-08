@@ -1,10 +1,7 @@
 <template>
-  <nav>
-  <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/user-profile">Profile</router-link> |
-   <!--  <router-link to="/calendar">Calendar</router-link> -->
-  </nav>
+  <h1>BePresent</h1>
+ <router-link to="/">Home</router-link> 
+ <ProfileList />
   <router-view/>
 </template>
 

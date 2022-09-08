@@ -40,8 +40,6 @@
                 <label>Home & Living</label>
                 <input type="checkbox" value="clothing-and-shoes" v-model="interests">
                 <label>Clothing & Shoes</label>
-                <input type="checkbox" value="Cooking" v-model="interests">
-                <label>Cooking</label>
                 <input type="checkbox" value="toys-and-entertainment" v-model="interests">
                 <label>Toys & Entertainment</label>
             </ul>
@@ -65,6 +63,9 @@
     
         
     </form>
+    <p class="or">or</p>
+    <button @click="$router.push('login')">Already have an account?</button>
+
     <!-- <p>first name: {{ firstName }}</p>
     <p>last name: {{ lastName }}</p>
     <p>Email: {{ email }}</p>
@@ -184,9 +185,8 @@ import axios from 'axios'
 
 
     }
-    .date-eg {
-        
-        color: rgb(184, 184, 184);
+    .date-eg, .or {
+         color: rgb(184, 184, 184);
         font-size: 0.6em;
         text-transform: uppercase;
         letter-spacing: 2px;
