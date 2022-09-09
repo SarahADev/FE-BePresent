@@ -46,13 +46,13 @@ const routes = [
     component: SignUpForm
   },
    {
-    path: '/user_profile',
-    name: 'user_profile',
+    path: '/user-profile',
+    name: 'user-profile',
     component: UserProfile
   },  
   {
-    path: '/profile',
-    name: 'profile',
+    path: '/add-profile',
+    name: 'add-profile',
     component: AddProfile
   },
 
