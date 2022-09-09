@@ -10,6 +10,8 @@ import Profiles from '../views/Profiles'
 import UserProfile from '../components/UserProfile.vue'
 import AddProfile from '../components/AddProfile.vue'
 
+import AddFriend from '../components/AddFriend.vue'
+
 
 const routes = [
   {
@@ -55,6 +57,11 @@ const routes = [
     name: 'add-profile',
     component: AddProfile
   },
+  {
+    path:'/add-friend',
+    name:'add-friend',
+    component: AddFriend
+  }
 
 ]
 

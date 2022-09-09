@@ -1,4 +1,5 @@
 <template>
+    <section>
     <h2>Calendar</h2>
 <div>
     <div class="month-card">
@@ -97,7 +98,7 @@
     <h3>November</h3>
     <h3>December</h3>
 </div>
-   
+</section>
 </template>
 
 <script>
