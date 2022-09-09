@@ -53,12 +53,23 @@
       >
         Change Password
       </button>
-      <input v-if="clicked4" type="name" required v-model="password" />
+      <input v-if="clicked4" type="password" v-model="password" />
     </p>
 <br />
 
     <label>Birthday: </label>
-    <p>{{ day }} {{ month }} {{ year }}</p>
+    <p class="birthday">{{ day }} {{ month }} {{ year }}
+        <button
+        class="submit"
+        @click="
+          changeBirthday();
+          clicked5 = !clicked5;
+        "
+      >
+      Change Birthday
+      </button>
+      <input v-if="clicked5" type="date" required v-model="birth_day"/>
+    </p>
     <br />
 
     <label>Interests:</label>
@@ -69,7 +80,7 @@
       </li>
     </ul>
     <br />
-    
+
     <label>Friends:</label>
     <p>{{ connections }}</p>
     <br />
