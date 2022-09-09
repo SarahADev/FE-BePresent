@@ -116,22 +116,20 @@
 
     <label>Friends:</label>
     
-      <ul v-for="connection in connections" :key="connection">
-      <li>{{renderFriends(connection)}}</li>
-      <li>{{friendList}}</li>
-       <!--  <p>{{ connection + "&nbsp;" }}</p> -->
-    
-    </ul>
+      <ul v-for="friends in friendsList" :key="friends">
+      <li>{{friends}}</li>
+      </ul>
 
     <br />
+
+    
   </form>
 </template>
 
-<!-- {{axios.get('getUserById/${id}').then(({first_name})) }} -->
 
 <script>
 import axios from "axios";
-import { render } from '@vue/runtime-dom';
+
 export default {
   data() {
     return {
@@ -143,14 +141,13 @@ export default {
       year: "",
       password: "",
       interests: "",
-      connections: [],
       clicked1:"",
       clicked2:"",
       clicked3:"",
       clicked4:"",
       clicked6:"",
       clicked7:"",
-      friendList: []
+      friendsList: []
     };
   },
   beforeMount() {
@@ -167,8 +164,13 @@ export default {
         this.day = data.user.birth_day;
         this.year = data.user.birth_year;
         this.interests = data.user.interests;
-        this.connections = data.user.connections
+        data.user.connections.map((connection) => {
+          axios.get(`https://be-present.fly.dev/users/${connection}`).then(({data}) => {
+            this.friendsList.push(`${data.user.first_name} ${data.user.last_name}`)
+          });
+        });
       })      
+      
   },
   methods: {
     changeName() {
@@ -230,11 +232,7 @@ birth_year:this.year
         }
       );
     },
-    renderFriends(connection) {
-     axios.get( `https://be-present.fly.dev/users/${connection}`).then(({data}) => {
-      this.friendList.push(data.user.first_name)
-     })
-    }
+    
   },
 };
 </script>
