@@ -1,45 +1,59 @@
 <template>
+  <section>
   <form @submit="handleSubmit">
     <h2>Login</h2>
     <label for="">Email:</label>
     <input type="email" required v-model="email" />
 
     <label>Password:</label>
-    <input type="password" required v-model="password" />
-    <div v-if="passwordError" class="error">{{ passwordError }}</div>
+    <input type="password"  minlength="6" maxlength="30" required v-model="password" />
 
-    <button class="submit" @click="checkUser">Submit</button>
+    <!-- after succesful login need to send to own calender with :userid -->
+    <button class="submit">Create Account</button>
+
   </form>
+
   <p class="or">or</p>
-  <button @click="$router.push('user-profile')">Create Account</button>
-  <!-- <p>Email: {{ email }}</p>
+
+  <button @click="$router.push('signup')">Create Account</button>
+<!--   
+  <p>Email: {{ email }}</p>
   <p>Password: {{ password }}</p> -->
+</section>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-      passwordError: "",
-    }
-  },
-  methods: {
-    handleSubmit() {
-      this.passwordError = this.password.length > 5 ?
-      '' : 'Password must be at least 6 chars long'
-
+  import axios from 'axios'
+  export default {
+    data() {
+      return {
+        email: "",
+        password: "",
+        userId: "",
+      }
     },
-    async checkUser() {
-    let result = await axios.get("https://be-present.fly.dev/users", {
+    methods: {
+      async checkUser() {
+        await axios.post("https://be-present.fly.dev/users/login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(({data}) => {
+          this.userId = data.user_id
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      },
+      handleSubmit() {
+      this.checkUser()
+
+      },
+      
+
+
     }
-  
-       )}
-
-
   }
-}
 
 </script>
 
