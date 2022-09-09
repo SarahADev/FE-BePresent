@@ -36,18 +36,26 @@
     <label>Email:</label>
     <p class="email">
       {{ email }}
-      <button class="submit" @click="changeEmail(); clicked3 = !clicked3;">Change Email</button>
+      <button
+        class="submit"
+        @click="
+          changeEmail();
+          clicked3 = !clicked3;
+        "
+      >
+        Change Email
+      </button>
       <input v-if="clicked3" type="name" required v-model="email" />
     </p>
     <br />
 
-<label>Password</label>
+    <label>Password</label>
     <p class="password">
       {{ password }}
       <button
         class="submit"
         @click="
-          changeName();
+          changePassword();
           clicked4 = !clicked4;
         "
       >
@@ -55,40 +63,73 @@
       </button>
       <input v-if="clicked4" type="password" v-model="password" />
     </p>
-<br />
+    <br />
 
     <label>Birthday: </label>
-    <p class="birthday">{{ day }} {{ month }} {{ year }}
-        <button
+    <p class="birthday">
+      {{ day }} {{ month }} {{ year }}
+      <button
         class="submit"
         @click="
-          changeBirthday();
+          changeBirthDay();
           clicked5 = !clicked5;
         "
       >
-      Change Birthday
+        Change day
       </button>
-      <input v-if="clicked5" type="date" required v-model="birth_day"/>
+      <input v-if="clicked5" type="text" required v-model="day" />
+
+      <button
+        class="submit"
+        @click="
+          changeBirthMonth();
+          clicked6 = !clicked6;
+        "
+      >
+        Change month
+      </button>
+      <input v-if="clicked6" type="text" required v-model="month" />
+
+      
+      <button
+        class="submit"
+        @click="
+          changeBirthYear();
+          clicked7 = !clicked7;
+        "
+      >
+        Change year
+      </button>
+      <input v-if="clicked7" type="text" required v-model="year" />
+
     </p>
     <br />
 
     <label>Interests:</label>
+    <p>
     <ul>
       <li v-for="interest in interests" :key="interest">
-        {{ "&#x20;" + interest }}
-        
+        <p>{{ interest + "&nbsp;" }}</p>
       </li>
     </ul>
-    <br />
+    </p>
 
     <label>Friends:</label>
-    <p>{{ connections }}</p>
+    
+      <ul v-for="friends in friendsList" :key="friends">
+      <li>{{friends}}</li>
+      </ul>
+
     <br />
+
+    
   </form>
 </template>
 
+
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -98,9 +139,15 @@ export default {
       day: "",
       month: "",
       year: "",
-      password:"",
+      password: "",
       interests: "",
-      connections: "",
+      clicked1:"",
+      clicked2:"",
+      clicked3:"",
+      clicked4:"",
+      clicked6:"",
+      clicked7:"",
+      friendsList: []
     };
   },
   beforeMount() {
@@ -117,8 +164,13 @@ export default {
         this.day = data.user.birth_day;
         this.year = data.user.birth_year;
         this.interests = data.user.interests;
-        this.connections = data.user.connections;
-      });
+        data.user.connections.map((connection) => {
+          axios.get(`https://be-present.fly.dev/users/${connection}`).then(({data}) => {
+            this.friendsList.push(`${data.user.first_name} ${data.user.last_name}`)
+          });
+        });
+      })      
+      
   },
   methods: {
     changeName() {
@@ -145,15 +197,42 @@ export default {
         }
       );
     },
- changePassword() {
+    changePassword() {
       axios.patch(
         "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",
         {
           password: this.password,
         }
+      ).then((res)=> {
+        console.log(res.data);
+      }).catch((err) => {
+        console.log(err);
+      }) 
+    },
+    changeBirthDay() {
+      axios.patch(
+        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",
+        {
+          birth_day: this.day,
+        }
       );
     },
-
+    changeBirthMonth() {
+      axios.patch(
+        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",
+        {
+          birth_month: this.month,
+        }
+      );
+    },
+    changeBirthYear() {
+      axios.patch(
+        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",{
+birth_year:this.year
+        }
+      );
+    },
+    
   },
 };
 </script>
@@ -170,7 +249,7 @@ profile {
 span {
   color: #ea9010;
   display: inline-block;
-  margin: 25px 0 15px;
+  margin: 15px 0 15px;
   font-size: 0.6em;
   text-transform: uppercase;
   letter-spacing: 1px;
