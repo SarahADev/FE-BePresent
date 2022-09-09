@@ -23,7 +23,7 @@ export default {
       email: "",
       password: "",
       passwordError: "",
-    };
+    }
   },
   methods: {
     handleSubmit() {
@@ -37,8 +37,10 @@ export default {
   
        )}
 
+
   }
 }
+
 </script>
 
 

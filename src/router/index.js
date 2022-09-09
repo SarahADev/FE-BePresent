@@ -25,8 +25,8 @@ const routes = [
   },
 
   {
-    path: '/user-profile',
-    name: 'user-profile',
+    path: '/sign-up',
+    name: 'sign-up',
     component: SignUpForm
   },
   {

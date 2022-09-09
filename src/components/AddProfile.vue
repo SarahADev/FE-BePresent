@@ -8,8 +8,13 @@
         <input type="name" required v-model="lastName">
 
         <label for="">Date of Birth:</label>
-        <input type="date" required v-model="dob">
-
+        <div class="dob">
+        <input type="text" v-model="day">
+        <p class="slash">/</p>
+        <input type="text" v-model="month">
+        <p class="slash">/</p>
+        <input type="text" v-model="year">
+        </div>
         <label>Relation:</label>
         <select v-model="role">
             <option value="family">Family</option>
@@ -21,18 +26,18 @@
 
         <Label>Interests:</Label>
         
-        <div required>
-            <input type="checkbox" value="art-and-collectibles" v-model="interests">
+        <ul>
+            <input class="interests" type="checkbox" value="art-and-collectibles" v-model="interests">
             <label>Art & Collectibles</label>
-            <input type="checkbox" value="jewelry-and-accessories" v-model="interests">
+            <input class="interests" type="checkbox" value="jewelry-and-accessories" v-model="interests">
             <label>Jewelry & Accessories</label>
-            <input type="checkbox" value="home-and-living" v-model="interests">
+            <input class="interests" type="checkbox" value="home-and-living" v-model="interests">
             <label>Home & Living</label>
-            <input type="checkbox" value="clothing-and-shoes" v-model="interests">
+            <input class="interests" type="checkbox" value="clothing-and-shoes" v-model="interests">
             <label>Clothing & Shoes</label>
-            <input type="checkbox" value="toys-and-entertainment" v-model="interests">                
+            <input class="interests" type="checkbox" value="toys-and-entertainment" v-model="interests">                
             <label>Toys & Entertainment</label>
-        </div>
+        </ul>
         <br>
         <p>We will reccomend you gifts based on their interests</p>
 
@@ -55,7 +60,9 @@
             return {
                 firstName: '',
                 lastName: '',
-                dob: '',
+                  day: '',
+                month: '',
+                year: '',
                 relation: 'Family',
                 reminders: true,
                 terms: false,
@@ -129,5 +136,16 @@
         text-transform: uppercase;
         color: #4e937a;
     }
-
+    .slash {
+        margin:8px
+    }
+    ul {
+        align-items:center;
+        border: 1px solid transparent;
+        cursor: pointer;
+        display:inline-block;
+        padding: 0.5rem;
+        user-select: none;
+        justify-content: left;
+    }
 </style>
