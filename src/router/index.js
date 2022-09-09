@@ -10,6 +10,8 @@ import Profiles from '../views/Profiles'
 import UserProfile from '../components/UserProfile.vue'
 import AddProfile from '../components/AddProfile.vue'
 
+import AddFriend from '../components/AddFriend.vue'
+
 
 const routes = [
   {
@@ -46,15 +48,20 @@ const routes = [
     component: SignUpForm
   },
    {
-    path: '/user_profile',
-    name: 'user_profile',
+    path: '/user-profile',
+    name: 'user-profile',
     component: UserProfile
   },  
   {
-    path: '/profile',
-    name: 'profile',
+    path: '/add-profile',
+    name: 'add-profile',
     component: AddProfile
   },
+  {
+    path:'/add-friend',
+    name:'add-friend',
+    component: AddFriend
+  }
 
 ]
 

@@ -5,11 +5,11 @@
  <ProfileList /> -->
 
   <nav>
-  <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link> |
+  <router-link to="/">Home</router-link> 
+    <!-- <router-link to="/login">Login</router-link> |
     <router-link to="/signup">Sign Up</router-link> |
-    <router-link to="/profile">Add friend</router-link> |
-    <router-link to="/user_profile">My profile</router-link> 
+    <router-link to="/add-profile">Add friend</router-link> |
+    <router-link to="/user-profile">My profile</router-link>  -->
   </nav>
 
   <router-view/>
