@@ -104,7 +104,7 @@
 <script>
     export default {
         data() {
-
+            month: ''
         }
     }
 </script>

@@ -1,20 +1,21 @@
 <template>
     <form @submit="handleSubmit">
         <h2>Create a Profile</h2>
-        <label for="">First Name</label>
-        <input type="name" required v-model="firstName">
 
-        <label for="">Last Name</label>
-        <input type="name" required v-model="lastName">
+        <label for="">Name</label>
+        <input type="name" required v-model="name">
 
         <label for="">Date of Birth:</label>
         <div class="dob">
         <input type="text" v-model="day">
+        <div v-if="dayError" class="error">{{ dayError }}</div>
         <p class="slash">/</p>
         <input type="text" v-model="month">
+        <div v-if="monthError" class="error">{{ monthError }}</div>
         <p class="slash">/</p>
         <input type="text" v-model="year">
         </div>
+
         <label>Relation:</label>
         <select v-model="role">
             <option value="family">Family</option>
@@ -25,7 +26,6 @@
         </select>
 
         <Label>Interests:</Label>
-        
         <ul>
             <input class="interests" type="checkbox" value="art-and-collectibles" v-model="interests">
             <label>Art & Collectibles</label>
@@ -43,41 +43,53 @@
 
         <br>
 
-        <button class="submit" @click="handleClick">Add</button>
+        <button class="submit" @click="handleSubmit()">Add</button>
     
         
     </form>
-    <p>first name: {{ firstName }}</p>
-    <p>last name: {{ lastName }}</p>
+    <p>name: {{ name }}</p>
     <p>Date of Birth: {{dob}}</p>
     <p>Relation: {{relation}}</p>
     <p>Preferences: {{interests}}</p>
 </template>
 
 <script>
+    let userId = "d4ee78cb-854f-4034-8d7d-b020106bc968"
+    import axios from "axios"
     export default {
         data() {
             return {
-                firstName: '',
-                lastName: '',
-                  day: '',
+                name: '',
+                day: '',
                 month: '',
                 year: '',
                 relation: 'Family',
-                reminders: true,
-                terms: false,
                 interests:[],
-
+                dayError: ''
             }
         },
         methods: {
-            handleSubmit() {
+
+            handleSubmit(){
+                this.dayError = this.day.length === 2 ?
+                '' : 'Day and Month must be 2 characters long'
+                this.monthError = this.month.length === 2 ?
+                '' : 'Day and Month must be 2 characters long'
                 
-                console.log('email: ', this.email)
-                console.log('password: ', this.password)
-                console.log('date: ', this.dob)
-                console.log('relation', this.relation)
-                console.log('interests: ', this.interests)
+            },
+            
+            async addProfile(){
+                await axios.patch(`https://be-present.fly.dev/users/${userId}/profiles`, 
+                {
+                    name: this.name,
+                    birth_day: this.day,
+                    birth_month: this.month,
+                    birth_year: this.year,
+                    interests: this.interests
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
             }
         }
     }
@@ -147,5 +159,12 @@
         padding: 0.5rem;
         user-select: none;
         justify-content: left;
+    }
+    .error {
+        color:red;
+        font-size: 0.6em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
     }
 </style>

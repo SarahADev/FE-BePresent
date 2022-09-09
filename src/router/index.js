@@ -32,7 +32,7 @@ const routes = [
     component: SignUpForm
   },
   {
-    path:'/calendar',
+    path:'/:userId/calendar',
     name:'calendar',
     component: Calendar
   },

@@ -1,4 +1,5 @@
 <template>
+    <section>
     <form @submit="handleSubmit">
         <h2>Create Account</h2>
 
@@ -12,16 +13,16 @@
         <input type="email" required v-model="email">
 
         <label>Password:</label>
-        <input type="password" required v-model="password">
-        <div v-if="passwordError" class="error">{{ passwordError }}</div>
+        <input type="password" minlength="6" maxlength="30" required v-model="password">
+        <!-- <div v-if="passwordError" class="error">{{ passwordError }}</div> -->
 
         <label for="">Date of Birth:</label>
         <div class="dob">
-        <input type="text" v-model="day">
+        <input type="text" minlength="2" maxlength="2" v-model="day">
         <p>/</p>
-        <input type="text" v-model="month">
+        <input type="text" minlength="2" maxlength="2" v-model="month">
         <p>/</p>
-        <input type="text" v-model="year">
+        <input type="text" minlength="4" maxlength="4" v-model="year">
         <!-- <div v-if="yearError" class="error">{{ yearError }}</div> -->
     
         <!-- <input type="date" required v-model="dob"> -->
@@ -59,13 +60,13 @@
             <label>Recieve email reminders for your upcoming events</label>
         </div>
 
-        <button class="submit" @click="addUser()">Create Account</button>
+        <button class="submit">Create Account</button>
     
         
     </form>
     <p class="or">or</p>
     <button @click="$router.push('login')">Already have an account?</button>
-
+    </section>
     <!-- <p>first name: {{ firstName }}</p>
     <p>last name: {{ lastName }}</p>
     <p>Email: {{ email }}</p>
@@ -97,15 +98,10 @@ import axios from 'axios'
             }
         },
         methods: {
-            handleSubmit() {
-      this.passwordError = this.password.length > 5 ? 
-      '' : 'Password must be at least 6 characters long'
-    //   this.yearError = this.year.length = 4 ? 
-    //   '' : console.log('Year must be at least 4 numbers long')
             
-            },
             async addUser() {
-                let result = await axios.post("https://be-present.fly.dev/users", {
+               
+                await axios.post("https://be-present.fly.dev/users", {
                     first_name:this.firstName,
                     last_name:this.lastName,
                     email:this.email,
@@ -116,9 +112,14 @@ import axios from 'axios'
                     interests:this.interests
 
                 })
-                console.log(result, this.firstName, this.month, this.lastName);
-                
-            }
+                .catch((error) => {
+                    console.log(error)
+                })
+            },
+            handleSubmit() {
+            this.addUser()
+
+            },
         }
     }
 </script>
@@ -177,7 +178,6 @@ import axios from 'axios'
         text-transform: uppercase;
         letter-spacing: 1px;
         font-weight: bold;
-
     }
     .dob {
         display: flex;

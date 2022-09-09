@@ -8,10 +8,10 @@ Replace the parametric endpoint with the users ‘user_id’.
 <template>
   <div>
     <h2>Friends</h2>
-    <form>
+    <form @submit="handleSubmit">
       <label for="">Email:</label>
         <input type="email" required v-model="email">
-        <button @click="addFriend()">Search</button>
+        <button @click="handleSubmit">Search</button>
     </form>
   </div>
   <p>{{email}}</p>
@@ -22,9 +22,7 @@ Replace the parametric endpoint with the users ‘user_id’.
 
   import axios from "axios"
 
-
     export default {
-
         data(){
             return {
                 email: "",
@@ -45,7 +43,9 @@ Replace the parametric endpoint with the users ‘user_id’.
               // console.log(this.email)
               console.log(error)
             })
-           
+          },
+          handleSubmit(){
+            this.addFriend()
           }
         }
       }
