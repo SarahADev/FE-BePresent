@@ -5,7 +5,6 @@
     <div class="month-card">
         <h3>January</h3>
         <span>01</span>
-        <!-- <h4>01</h4> -->
         <ul class="birthday-list">
             <li>
                 09 | Jasmin Bannister
