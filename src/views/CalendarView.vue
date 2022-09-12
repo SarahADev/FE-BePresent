@@ -6,18 +6,13 @@
         <nav>
             <button @click="handleClick">My Profile</button>
         </nav>
-        <p>userId: {{this.$route.params.userId}}</p>
 </template>
 
 <script>
     export default {
-        props: ['userId'],
-        created() {
-            console.log(this.$route.params.userId);
-        },  
         data() {
             return {
-                // userId: "banana"
+                
             };
         },
         methods: {
