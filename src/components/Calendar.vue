@@ -2,6 +2,7 @@
     <section>
     <h2>Calendar</h2>
 <div>
+    <p>{{this.$route.params.userId}}</p>
     <div class="month-card">
         <h3>January</h3>
         <span>01</span>
@@ -96,16 +97,37 @@
     <h3>October</h3>
     <h3>November</h3>
     <h3>December</h3>
+    
 </div>
 </section>
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
         data() {
-            month: ''
-        }
-    }
+            return {
+                friendId: [],
+                friendList: []
+            }
+            },
+        beforeMount() {
+            axios
+            .get(
+                `https://be-present.fly.dev/users/${this.$route.params.userId}`
+            )
+            .then(({data}) => {
+                this.friendId = data.user.connections
+                this.friendId.map((friend) => {
+                    axios.get(`https://be-present.fly.dev/users/${friend}`)
+                    .then(({data}) => {
+                        this.friendList.push(data.user) 
+                        console.log(this.friendList)
+                    });
+                });
+            });
+        },
+    };
 </script>
 
 <style>
