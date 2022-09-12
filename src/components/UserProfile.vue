@@ -121,8 +121,8 @@
 
     <label>Friends:</label>
     
-      <ul v-for="friends in friendsList" :key="friends">
-      <li>{{friends}}</li>
+      <ul v-for="(friends, index) in friendsList" :key="friends">
+      <li @click="renderFriend(index)">{{friends}}</li>
       </ul>
     <br />
     <AddFriend/>
@@ -172,7 +172,53 @@ export default {
                 });
             });
         });
-    },
+=======
+  data() {
+    return {
+      firstName: "",
+      lastName: "",
+      email: "",
+      day: "",
+      month: "",
+      year: "",
+      password: "",
+      interests: "",
+      clicked1:"",
+      clicked2:"",
+      clicked3:"",
+      clicked4:"",
+      clicked5:"",
+      clicked6:"",
+      clicked7:"",
+      friendsList: [],
+      friendId: []
+      
+    };
+  },
+  beforeMount() {
+    axios
+      .get(
+        `https://be-present.fly.dev/users/${this.$route.params.userId}`
+      )
+      .then(({ data }) => {
+        this.firstName = data.user.first_name;
+        this.lastName = data.user.last_name;
+        this.email = data.user.email;
+        this.password = data.user.password;
+        this.month = data.user.birth_month;
+        this.day = data.user.birth_day;
+        this.year = data.user.birth_year;
+        this.interests = data.user.interests;
+        data.user.connections.map((connection) => {
+          axios.get(`https://be-present.fly.dev/users/${connection}`).then(({data}) => {
+            this.friendsList.push(`${data.user.first_name} ${data.user.last_name}`)
+            this.friendId.push(connection);
+          });
+  
+        });
+      })      
+     },
+   },
     methods: {
         changeName() {
             axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
@@ -220,7 +266,7 @@ export default {
             await this.$router.push({ name: `user-profile`, params: { userId: this.$route.params.userId } });
         },
     },
-    components: { AddFriend }
+  },
 };
 </script>
 
