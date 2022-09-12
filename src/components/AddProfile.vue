@@ -39,7 +39,7 @@
             <label>Toys & Entertainment</label>
         </ul>
         <br>
-        <p>We will reccomend you gifts based on their interests</p>
+        <p>We will recommend you gifts based on their interests</p>
 
         <br>
 

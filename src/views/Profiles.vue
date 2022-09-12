@@ -30,7 +30,6 @@
                 console.log(result)
             },
             handleSubmit(){
-                console.log(cliick)
                 result.filter((user) => {
                     const friend = user.email === this.email
                     console.log(friend)
