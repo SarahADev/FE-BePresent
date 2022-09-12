@@ -1,9 +1,5 @@
 <template>
 
-<!--   <h1>BePresent</h1>
- <router-link to="/">Home</router-link> 
- <ProfileList /> -->
-
   <nav>
   </nav>
 
