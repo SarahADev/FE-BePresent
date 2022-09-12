@@ -11,6 +11,7 @@ import UserProfile from '../components/UserProfile.vue'
 import AddProfile from '../components/AddProfile.vue'
 
 import AddFriend from '../components/AddFriend.vue'
+import FriendProfile from '../components/FriendProfile'
 
 
 const routes = [
@@ -61,7 +62,13 @@ const routes = [
     path:'/add-friend',
     name:'add-friend',
     component: AddFriend
-  }
+  },
+
+  {
+    path:'/friend-profile/:userId',
+    name:'friend-profile',
+    component: FriendProfile
+  },
 
 ]
 

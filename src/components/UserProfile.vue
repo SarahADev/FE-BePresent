@@ -116,8 +116,8 @@
 
     <label>Friends:</label>
     
-      <ul v-for="friends in friendsList" :key="friends">
-      <li>{{friends}}</li>
+      <ul v-for="(friends, index) in friendsList" :key="friends">
+      <li @click="renderFriend(index)">{{friends}}</li>
       </ul>
 
     <br />
@@ -145,9 +145,12 @@ export default {
       clicked2:"",
       clicked3:"",
       clicked4:"",
+      clicked5:"",
       clicked6:"",
       clicked7:"",
-      friendsList: []
+      friendsList: [],
+      friendId: []
+      
     };
   },
   beforeMount() {
@@ -167,7 +170,9 @@ export default {
         data.user.connections.map((connection) => {
           axios.get(`https://be-present.fly.dev/users/${connection}`).then(({data}) => {
             this.friendsList.push(`${data.user.first_name} ${data.user.last_name}`)
+            this.friendId.push(connection);
           });
+  
         });
       })      
       
@@ -232,8 +237,15 @@ birth_year:this.year
         }
       );
     },
-    
-  },
+    renderFriend(index) {
+      let clickedFriend = this.friendId[index];
+      this.$router.push({name: "friend-profile", params:{userId: clickedFriend}} )
+     
+      }
+ 
+    }
+
+  
 };
 </script>
 
