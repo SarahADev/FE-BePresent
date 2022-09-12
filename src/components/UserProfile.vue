@@ -175,8 +175,10 @@ export default {
             this.friendId.push(connection);
           });
         });
+
     });
   },
+
     methods: {
         changeName() {
             axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
@@ -228,6 +230,7 @@ export default {
             await this.$router.push({ name: `user-profile`, params: { userId: this.$route.params.userId } });
         },
     },
+
 };
 </script>
 
