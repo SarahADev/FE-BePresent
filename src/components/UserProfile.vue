@@ -1,5 +1,10 @@
 <template>
   <form class="profile">
+    <nav>
+      <button @click="handleClickGetPresents">Get Presents!</button>
+      <button @click="handleClickHome">Home</button>
+      <button @click="handleClickProfile">My Profile</button>
+    </nav>
     <h2>Your Account</h2>
     <label>First Name</label>
     <p class="firstName">
@@ -232,7 +237,12 @@ birth_year:this.year
         }
       );
     },
-    
+    async handleClickHome () {
+      await this.$router.push({name: `calendar`, params: {userId: this.$route.params.userId}})
+    },
+    async handleClickProfile () {
+                await this.$router.push({name: `user-profile`, params: {userId: this.$route.params.userId}})
+    },
   },
 };
 </script>

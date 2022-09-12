@@ -4,7 +4,9 @@
         </div>
         <h1>Calendar Page</h1>
         <nav>
-            <button @click="handleClick">My Profile</button>
+            <button @click="handleClickGetPresents">Get Presents!</button>
+            <button @click="handleClickHome">Home</button>
+            <button @click="handleClickProfile">My Profile</button>
         </nav>
 </template>
 
@@ -16,8 +18,11 @@
             };
         },
         methods: {
-            async handleClick () {
+            async handleClickProfile () {
                 await this.$router.push({name: `user-profile`, params: {userId: this.$route.params.userId}})
+            },
+            async handleClickHome () {
+                await this.$router.push({name: `calendar`, params: {userId: this.$route.params.userId}})
             }
         },
 };
