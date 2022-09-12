@@ -161,6 +161,7 @@ export default {
         `https://be-present.fly.dev/users/${this.$route.params.userId}`
       )
       .then(({ data }) => {
+        console.log(data)
         this.firstName = data.user.first_name;
         this.lastName = data.user.last_name;
         this.email = data.user.email;
@@ -173,6 +174,7 @@ export default {
           axios.get(`https://be-present.fly.dev/users/${connection}`).then(({data}) => {
             this.friendsList.push(`${data.user.first_name} ${data.user.last_name}`)
             this.friendId.push(connection);
+            
           });
         });
 

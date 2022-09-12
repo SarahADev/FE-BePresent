@@ -50,7 +50,7 @@ const routes = [
     component: AddProfile
   },
   {
-    path:'/add-friend',
+    path:'/:userId/add-friend',
     name:'add-friend',
     component: AddFriend
   },
