@@ -124,18 +124,55 @@
       <ul v-for="(friends, index) in friendsList" :key="friends">
       <li @click="renderFriend(index)">{{friends}}</li>
       </ul>
-
     <br />
-
-    
+    <AddFriend/>
   </form>
 </template>
 
 
 <script>
 import axios from "axios";
+import AddFriend from "./AddFriend.vue";
 
 export default {
+    data() {
+        return {
+            firstName: "",
+            lastName: "",
+            email: "",
+            day: "",
+            month: "",
+            year: "",
+            password: "",
+            interests: "",
+            clicked1: "",
+            clicked2: "",
+            clicked3: "",
+            clicked4: "",
+            clicked6: "",
+            clicked7: "",
+            friendsList: []
+        };
+    },
+    beforeMount() {
+        axios
+            .get(`https://be-present.fly.dev/users/${this.$route.params.userId}`)
+            .then(({ data }) => {
+            this.firstName = data.user.first_name;
+            this.lastName = data.user.last_name;
+            this.email = data.user.email;
+            this.password = data.user.password;
+            this.month = data.user.birth_month;
+            this.day = data.user.birth_day;
+            this.year = data.user.birth_year;
+            this.interests = data.user.interests;
+            data.user.connections.map((connection) => {
+                axios.get(`https://be-present.fly.dev/users/${connection}`).then(({ data }) => {
+                    this.friendsList.push(`${data.user.first_name} ${data.user.last_name}`);
+                });
+            });
+        });
+=======
   data() {
     return {
       firstName: "",
@@ -180,82 +217,56 @@ export default {
   
         });
       })      
-      
-  },
-  methods: {
-    changeName() {
-      axios.patch(
-        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",
-        {
-          first_name: this.firstName,
-        }
-      );
-    },
-    changeLastName() {
-      axios.patch(
-        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",
-        {
-          last_name: this.lastName,
-        }
-      );
-    },
-    changeEmail() {
-      axios.patch(
-        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",
-        {
-          email: this.email,
-        }
-      );
-    },
-    changePassword() {
-      axios.patch(
-        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",
-        {
-          password: this.password,
-        }
-      ).then((res)=> {
-        console.log(res.data);
-      }).catch((err) => {
-        console.log(err);
-      }) 
-    },
-    changeBirthDay() {
-      axios.patch(
-        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",
-        {
-          birth_day: this.day,
-        }
-      );
-    },
-    changeBirthMonth() {
-      axios.patch(
-        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",
-        {
-          birth_month: this.month,
-        }
-      );
-    },
-    changeBirthYear() {
-      axios.patch(
-        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968",{
-birth_year:this.year
-        }
-      );
-    },
-
-    renderFriend(index) {
-      let clickedFriend = this.friendId[index];
-      this.$router.push({name: "friend-profile", params:{userId: clickedFriend}} )
-     
-    }
-    async handleClickHome () {
-      await this.$router.push({name: `calendar`, params: {userId: this.$route.params.userId}})
-    },
-    async handleClickProfile () {
-                await this.$router.push({name: `user-profile`, params: {userId: this.$route.params.userId}})
+     },
+   },
+    methods: {
+        changeName() {
+            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+                first_name: this.firstName,
+            });
+        },
+        changeLastName() {
+            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+                last_name: this.lastName,
+            });
+        },
+        changeEmail() {
+            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+                email: this.email,
+            });
+        },
+        changePassword() {
+            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+                password: this.password,
+            }).then((res) => {
+                console.log(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
+        changeBirthDay() {
+            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+                birth_day: this.day,
+            });
+        },
+        changeBirthMonth() {
+            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+                birth_month: this.month,
+            });
+        },
+        changeBirthYear() {
+            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+                birth_year: this.year
+            });
+        },
+        async handleClickHome() {
+            await this.$router.push({ name: `calendar`, params: { userId: this.$route.params.userId } });
+        },
+        async handleClickProfile() {
+            await this.$router.push({ name: `user-profile`, params: { userId: this.$route.params.userId } });
+        },
     },
   },
-
 };
 </script>
 
