@@ -16,8 +16,6 @@
 
   <button @click="$router.push('signup')">Create Account</button>
   <p v-if="err">That email or password is incorrect, please try again.</p>
-
-  <!-- <userId v-bind:userId="userId"></userId> -->
  
 </section>
 </template>
