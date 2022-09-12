@@ -118,7 +118,7 @@ import axios from 'axios'
             },
             handleSubmit() {
             this.addUser()
-
+            this.$router.push('/');
             },
         }
     }

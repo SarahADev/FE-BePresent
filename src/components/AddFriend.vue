@@ -4,10 +4,9 @@
     <form @submit="handleSubmit">
       <label for="">Email:</label>
         <input type="email" required v-model="email">
-        <button @click="handleSubmit">Search</button>
+        <button>Search</button>
     </form>
   </div>
-  <p>{{email}}</p>
 </template>
 
 <script>
@@ -28,8 +27,7 @@
               connections: this.email
             }
             ).then((res) => {
-  
-              console.log(res)
+              console.log(res.user)
             }).catch((error) => {
               console.log(error)
             })
