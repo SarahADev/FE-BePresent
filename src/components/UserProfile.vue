@@ -153,7 +153,7 @@ export default {
   beforeMount() {
     axios
       .get(
-        "https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968"
+        `https://be-present.fly.dev/users/${this.$route.params.userId}`
       )
       .then(({ data }) => {
         this.firstName = data.user.first_name;

@@ -40,7 +40,6 @@ Replace the parametric endpoint with the users ‘user_id’.
   
               console.log(res)
             }).catch((error) => {
-              // console.log(this.email)
               console.log(error)
             })
           },
