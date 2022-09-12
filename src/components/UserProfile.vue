@@ -161,7 +161,7 @@ export default {
         `https://be-present.fly.dev/users/${this.$route.params.userId}`
       )
       .then(({ data }) => {
-        console.log(data)
+   
         this.firstName = data.user.first_name;
         this.lastName = data.user.last_name;
         this.email = data.user.email;
