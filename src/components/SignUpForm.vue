@@ -65,7 +65,7 @@
         
     </form>
     <p class="or">or</p>
-    <button @click="$router.push('login')">Already have an account?</button>
+    <button @click="$router.push('/')">Already have an account?</button>
     </section>
     <!-- <p>first name: {{ firstName }}</p>
     <p>last name: {{ lastName }}</p>

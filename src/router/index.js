@@ -1,9 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import LogIn from '../components/LogIn.vue'
 import SignUpForm from '../components/SignUpForm.vue' 
 
-import Calendar from '../components/Calendar.vue'
+import CalendarView from '../views/CalendarView'
 import Profiles from '../views/Profiles'
 
 
@@ -17,39 +16,31 @@ import FriendProfile from '../components/FriendProfile'
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
-  },
-
-  {
-    path: '/login',
     name: 'login',
     component: LogIn
   },
-
   {
     path: '/sign-up',
     name: 'sign-up',
     component: SignUpForm
   },
   {
-    path:'/:userId/calendar',
+    path:'/calendar/:userId',
     name:'calendar',
-    component: Calendar
+    component: CalendarView
   },
   {
     path: '/profiles',
     name: 'profiles',
     component: Profiles
   },
-
-{
+  {
     path: '/signup',
     name: 'signup',
     component: SignUpForm
   },
    {
-    path: '/user-profile',
+    path: '/user-profile/:userId',
     name: 'user-profile',
     component: UserProfile
   },  

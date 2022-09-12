@@ -1,6 +1,6 @@
 <template>
   <section>
-  <form @submit="handleSubmit">
+  <form @submit="checkUser">
     <h2>Login</h2>
     <label for="">Email:</label>
     <input type="email" required v-model="email" />
@@ -8,17 +8,15 @@
     <label>Password:</label>
     <input type="password"  minlength="6" maxlength="30" required v-model="password" />
 
-    <!-- after succesful login need to send to own calender with :userid -->
-    <button class="submit">Create Account</button>
+    <button class="submit">Login</button>
 
   </form>
 
   <p class="or">or</p>
 
   <button @click="$router.push('signup')">Create Account</button>
-<!--   
-  <p>Email: {{ email }}</p>
-  <p>Password: {{ password }}</p> -->
+  <p v-if="err">That email or password is incorrect, please try again.</p>
+ 
 </section>
 </template>
 
@@ -29,8 +27,9 @@
       return {
         email: "",
         password: "",
+        err: false,
         userId: "",
-      }
+      };
     },
     methods: {
       async checkUser() {
@@ -40,19 +39,13 @@
         })
         .then(({data}) => {
           this.userId = data.user_id
+          this.$router.push({name: `calendar`, params: {userId: this.userId}})
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
+          this.err = true;
         })
       },
-      handleSubmit() {
-      this.checkUser()
-
-      },
-      
-
-
-    }
+    },
   }
 
 </script>
