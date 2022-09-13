@@ -1,13 +1,16 @@
 <template>
+<Header/>
+    
         <div class="calendar">
             <router-view name="calendar"></router-view>
         </div>
-        <nav>
+        <nav class="calendar-nav">
             <button @click="handleClickGetPresents">Get Presents!</button>
-            <button @click="handleClickHome">Home</button>
+            <!-- <button @click="handleClickHome">Home</button> -->
             <button @click="handleClickProfile">My Profile</button>
         </nav>
-        <h1>Calendar Page</h1>
+   
+       
         <CalendarProfiles/>
         <Calendar/>
         
@@ -16,6 +19,7 @@
 <script>
 import Calendar from '@/components/Calendar.vue';
 import CalendarProfiles from '@/components/CalendarProfiles.vue';
+import Header from '@/components/Header.vue';
     export default {
     data() {
         return {};
@@ -28,6 +32,13 @@ import CalendarProfiles from '@/components/CalendarProfiles.vue';
             await this.$router.push({ name: `calendar`, params: { userId: this.$route.params.userId } });
         }
     },
-    components: { Calendar, CalendarProfiles }
+    components: { Calendar, CalendarProfiles, Header }
 };
 </script>
+
+<style>
+    .calendar-nav{
+        display: inline-block;
+
+    }
+</style>
