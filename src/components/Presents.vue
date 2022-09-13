@@ -28,7 +28,7 @@
       </ul>
       <!-- 'jewelry-and-accessories', 'clothing-and-shoes', 'home-and-living', 'wedding-and-party', 'toys-and-entertainment', 'art-and-collectibles' -->
     </div>
-    <button class="submit">Generate Gift Ideas</button>
+    <button>Generate Gift Ideas</button>
   </form>
   <ul>
     <li class="item-container" v-for="(item, index) in itemList" :key="index">
@@ -57,16 +57,17 @@ export default {
       let self = this;
       const cheerio = require("cheerio");
       const categories = this.interests;
+      let fullItemList = [];
+      let count = 0;
       categories.map((category) => {
         let url = `https://api.scraperapi.com?api_key=ff689ac484f512bf24e0ab3723745de9&url=https://www.etsy.com/uk/c/${category}`;
         let newItemList = [];
         axios(url)
           .then(function (response) {
-            console.log(response, "in then block");
+            count++;
             let html = response.data;
             let $ = cheerio.load(html);
             $("a.listing-link").each(function () {
-              console.log("in each func");
               const itemName = $(this)
                 .find("div.v2-listing-card__info")
                 .find("h2")
@@ -86,13 +87,28 @@ export default {
                 category,
               });
             });
-            console.log(newItemList, "item list");
-            self.itemList = newItemList.slice(16);
+            fullItemList.push(newItemList.slice(16));
+            fullItemList = fullItemList.flat();
+            // self.itemList = fullItemList.concat(newItemList.slice(16))
+            console.log(fullItemList, "trying to flatten it");
+            const randomArr = [];
+            while (randomArr.length < 9) {
+              const budgetItem =
+                fullItemList[Math.floor(Math.random() * fullItemList.length)];
+              if (budgetItem.itemPrice <= 10) {
+                randomArr.push(budgetItem);
+              }
+            }
+            if (count === categories.length) {
+              self.itemList = randomArr;
+              console.log(randomArr, "randomised");
+            }
           })
           .catch((err) => {
             console.log(err, "error");
           });
       });
+      //   outside map
     },
   },
 };
