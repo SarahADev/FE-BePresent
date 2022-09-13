@@ -8,11 +8,14 @@
             <button @click="handleClickProfile">My Profile</button>
         </nav>
         <h1>Calendar Page</h1>
+        <CalendarProfiles/>
         <Calendar/>
+        
 </template>
 
 <script>
 import Calendar from '@/components/Calendar.vue';
+import CalendarProfiles from '@/components/CalendarProfiles.vue';
     export default {
     data() {
         return {};
@@ -25,6 +28,6 @@ import Calendar from '@/components/Calendar.vue';
             await this.$router.push({ name: `calendar`, params: { userId: this.$route.params.userId } });
         }
     },
-    components: { Calendar }
+    components: { Calendar, CalendarProfiles }
 };
 </script>
