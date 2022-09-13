@@ -110,19 +110,74 @@
     </p>
     <br />
 
-    <label>Interests:</label>
-    <p>
-    <ul>
-      <li v-for="interest in interests" :key="interest">
-        <p>{{ interest + "&nbsp;" }}</p>
-      </li>
-    </ul>
-    </p>
+  <label>Interests:</label>
+    <div>
+      <ul>
+        <p v-for="interest in interests" :key="interest">
+          <p>{{ interest + "&nbsp;" }}</p>
+        </p>
+      </ul>
+      <button
+        class="submit"
+        @click="
+          changeInterests();
+          clicked8 = !clicked8;
+          clicked9 = !clicked9;
+          clicked10 = !clicked10;
+          clicked11 = !clicked11;
+          clicked12 = !clicked12;
+          clicked13 = !clicked13;
+        "
+      >
+        Change interests
+      </button>
+      <div class="interest-list" v-if="clicked13">
+        <ul>
+          <input
+            v-if="clicked8"
+            type="checkbox"
+            value="art-and-collectibles"
+            v-model="interests"
+          />
+          <label>Art & Collectibles</label>
+
+          <input
+            v-if="clicked9"
+            type="checkbox"
+            value="jewelry-and-accessories"
+            v-model="interests"
+          />
+          <label>Jewelry & Accessories</label>
+          <input
+            v-if="clicked10"
+            type="checkbox"
+            value="home-and-living"
+            v-model="interests"
+          />
+          <label>Home & Living</label>
+          <input
+            v-if="clicked11"
+            type="checkbox"
+            value="clothing-and-shoes"
+            v-model="interests"
+          />
+          <label>Clothing & Shoes</label>
+          <input
+            v-if="clicked12"
+            type="checkbox"
+            value="toys-and-entertainment"
+            v-model="interests"
+          />
+          <label>Toys & Entertainment</label>
+        </ul>
+      </div>
+    </div>
+
 
     <label>Friends:</label>
     
       <ul v-for="(friends, index) in friendsList" :key="friends">
-      <li @click="renderFriend(index)">{{friends}}</li>
+      <li @click="renderFriend(index)"><p>{{friends}}</p></li>
       </ul>
     <br />
     <AddFriend/>
@@ -151,6 +206,12 @@ export default {
             clicked4: "",
             clicked6: "",
             clicked7: "",
+            clicked8: "",
+            clicked9: "",
+            clicked10: "",
+            clicked11: "",
+            clicked12: "",
+            clicked13: "",
             friendsList: [],
             friendId: [],
         };
@@ -216,6 +277,14 @@ export default {
                 birth_year: this.year
             });
         },
+        changeInterests() {
+      axios.patch(
+        `https://be-present.fly.dev/users/${this.$route.params.userId}`,
+        {
+          interests: this.interests,
+        }
+      );
+    },
         renderFriend(index) {
             let clickedFriend = this.friendId[index];
             this.$router.push({ name: "friend-profile", params: { userId: this.$route.params.userId, friendId: clickedFriend } });
