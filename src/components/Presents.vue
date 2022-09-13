@@ -31,11 +31,13 @@
     <button class="submit">Generate Gift Ideas</button>
   </form>
   <p>{{ interests }}</p>
-  <p>{{ itemList }}</p>
+  <ul v-for="(item, index) in itemList" :key="index">
+    <li>{{ item }}</li>
+  </ul>
 </template>
 
 <script>
-import axios from "axios";
+const axios = require("axios");
 export default {
   data() {
     return {
@@ -46,27 +48,24 @@ export default {
   methods: {
     handleGenerate() {
       console.log("Handling the generator...");
-      console.log(this.interests, "interests");
       this.webScraper();
     },
     webScraper() {
-      console.log("in the webscraper");
+      let self = this;
+      console.log("in WS");
       const cheerio = require("cheerio");
-      const axios = require("axios");
       const categories = this.interests;
       categories.map((category) => {
-        console.log(
-          category,
-          "category in map",
-          `https://www.etsy.com/uk/c/${category}`
-        );
-        const url = `https://www.etsy.com/uk/c/${category}`;
+        console.log("in map", category);
+        let url = `https://api.scraperapi.com?api_key=ff689ac484f512bf24e0ab3723745de9&url=https://www.etsy.com/uk/c/${category}`;
+        let newItemList = [];
         axios(url)
-          .then((response) => {
-            const html = response.data;
-            const $ = cheerio.load(html);
-            this.itemList = [];
-            $("a.listing-link", html).each(function () {
+          .then(function (response) {
+            console.log(response, "in then block");
+            let html = response.data;
+            let $ = cheerio.load(html);
+            $("a.listing-link").each(function () {
+              console.log("in each func");
               const itemName = $(this)
                 .find("div.v2-listing-card__info")
                 .find("h2")
@@ -75,15 +74,16 @@ export default {
               const itemLink = $(this).attr("href");
               const itemImage = $(this).find("img.wt-width-full").attr();
               const itemPrice = $(this).find("span.currency-value").text();
-              itemList.push({
+              newItemList.push({
                 itemName,
                 itemLink,
                 itemImage: itemImage["data-src"],
                 itemPrice,
                 category,
               });
-              console.log(itemList, "item list");
             });
+            console.log(newItemList, "item list");
+            self.itemList = newItemList;
           })
           .catch((err) => {
             console.log(err, "error");
