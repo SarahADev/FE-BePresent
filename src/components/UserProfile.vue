@@ -56,7 +56,6 @@
 
     <label>Password</label>
     <p class="password">
-      {{ password }}
       <button
         class="submit"
         @click="
@@ -112,7 +111,7 @@
 
   <label>Interests:</label>
     <div>
-      <ul>
+      <ul class="interests">
         <p v-for="interest in interests" :key="interest">
           <p>{{ interest + "&nbsp;" }}</p>
         </p>
@@ -174,11 +173,11 @@
     </div>
 
 
-    <label>Friends:</label>
+    <label class="friends">Friends:</label>
     
-      <ul v-for="(friends, index) in friendsList" :key="friends">
-      <li @click="renderFriend(index)"><p>{{friends}}</p></li>
-      </ul>
+      <div  v-for="(friends, index) in friendsList" :key="friends">
+      <p @click="renderFriend(index)">{{friends}}</p>
+      </div>
     <br />
     <AddFriend/>
   </form>
@@ -301,6 +300,7 @@ export default {
 </script>
 
 <style>
+
 profile {
   max-width: 420px;
   margin: 30px auto;
@@ -322,9 +322,24 @@ button {
   background: #4e937a;
   border: 0;
   padding: 10px 20px;
-  margin-top: 20px;
+  margin-top: 0;
   color: white;
   border-radius: 20px;
   float: right;
 }
+
+label.friends {
+  margin: 0;
+}
+
+ul {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+}
+
+Ul.interests {
+  padding: 0;
+}
+
 </style>

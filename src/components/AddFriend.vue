@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import axios from "axios"
+import axios from "axios";
 
     export default {
         data(){
@@ -37,6 +37,28 @@
           handleSubmit(){
             this.addFriend()
           }
-        }
-      }
+        )
+        .then((res) => {
+          console.log(res.user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    handleSubmit() {
+      this.addFriend();
+    },
+  },
+};
 </script>
+
+<style scoped>
+form {
+  padding: 0;
+  margin: 0;
+}
+
+h4 {
+  margin: 0;
+}
+</style>
