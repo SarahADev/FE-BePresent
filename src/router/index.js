@@ -62,7 +62,7 @@ const routes = [
     component: FriendProfile
   },
   {
-    path:'/presents',
+    path:'/presents/:userId',
     name:'presents',
     component: Presents
   },
