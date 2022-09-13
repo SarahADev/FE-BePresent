@@ -218,7 +218,7 @@ export default {
         },
         renderFriend(index) {
             let clickedFriend = this.friendId[index];
-            this.$router.push({ name: "friend-profile", params: { userId: clickedFriend } });
+            this.$router.push({ name: "friend-profile", params: { userId: this.$route.params.userId, friendId: clickedFriend } });
         },
         handleClickHome() {
             this.$router.push({ name: `calendar`, params: { userId: this.$route.params.userId } });

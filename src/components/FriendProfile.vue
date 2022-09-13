@@ -10,14 +10,9 @@
     <label>Last Name</label>
     <p class="lastName">
       {{ lastName }}
-      
-    </p>
-    <br />
-
-  <!--   <label>Photo</label>
-    <p><img src= {{img}} alt="image"></p> -->
-
     
+    </p>
+    <br />    
     <label>Birthday: </label>
     <p class="birthday">
       {{ day }} {{ month }} {{ year }}
@@ -34,7 +29,7 @@
     </ul>
     </p>
 
-   <button>Delete friend</button>
+    <button @click="deleteFriend()">Delete friend</button>
   </form>
 
   
@@ -50,19 +45,16 @@ export default {
     return {
       firstName: "",
       lastName: "",
- /*      img: "https://source.unsplash.com/random", */
       day: "",
       month: "",
       year: "",
-    
       interests: "",
-  
     };
   },
   beforeMount() {
     axios
       .get(
-        `https://be-present.fly.dev/users/${this.$route.params.userId}`
+        `https://be-present.fly.dev/users/${this.$route.params.friendId}`
       )
       .then(({ data }) => {
         this.firstName = data.user.first_name;
@@ -71,11 +63,19 @@ export default {
         this.day = data.user.birth_day;
         this.year = data.user.birth_year;
         this.interests = data.user.interests;
-        
-      })      
-      
+      });      
   },
-  
+  methods: {
+    deleteFriend() {
+       console.log(this.$route.params.userId, 'userId');
+        console.log(this.$route.params.friendId, 'friendId');
+        axios.delete(`https://be-present.fly.dev/users/${this.$route.params.userId}/connections`, {
+          data: {
+            connection_id: this.$route.params.friendId
+          }
+        });
+    },
+  },
 };
 </script>
 
