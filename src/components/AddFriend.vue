@@ -4,6 +4,7 @@
     <form @submit="handleSubmit">
       <label for="">Email:</label>
         <input type="email" required v-model="email">
+        <p v-if="err">Already a friend!</p>
         <button>Search</button>
     </form>
   </div>
@@ -16,6 +17,7 @@
         data(){
             return {
                 email: "",
+                err: false
                }
         },
 
@@ -26,10 +28,10 @@
             {
               connections: this.email
             }
-            ).then((res) => {
-              console.log(res.user)
+            ).then(() => {
+              this.$router.go();
             }).catch((error) => {
-              console.log(error)
+              this.err = true;
             })
           },
           handleSubmit(){

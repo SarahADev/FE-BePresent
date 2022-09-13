@@ -67,12 +67,12 @@ export default {
   },
   methods: {
     deleteFriend() {
-       console.log(this.$route.params.userId, 'userId');
-        console.log(this.$route.params.friendId, 'friendId');
         axios.delete(`https://be-present.fly.dev/users/${this.$route.params.userId}/connections`, {
           data: {
             connection_id: this.$route.params.friendId
           }
+        }).then(() => {
+            this.$router.push({ name: "user-profile", params: { userId: this.$route.params.userId}});
         });
     },
   },
