@@ -2,7 +2,7 @@
 
   <nav>
   </nav>
-
+  <router-link to='/presents'>Presents</router-link>
   <router-view/>
 </template>
 
