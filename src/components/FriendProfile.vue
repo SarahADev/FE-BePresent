@@ -22,11 +22,11 @@
 
     <label>Interests:</label>
     <p>
-    <ul>
-      <li v-for="interest in interests" :key="interest">
-        <p>{{ interest + "&nbsp;" }}</p>
-      </li>
-    </ul>
+    <div>
+      <p v-for="interest in interests" :key="interest">
+        {{ interest + "&nbsp;" }}
+      </p>
+    </div>
     </p>
 
     <button @click="deleteFriend()">Delete friend</button>
@@ -79,7 +79,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 profile {
   max-width: 420px;
   margin: 30px auto;
@@ -101,7 +101,7 @@ button {
   background: #4e937a;
   border: 0;
   padding: 10px 20px;
-  margin-top: 20px;
+  margin-top: 0;
   color: white;
   border-radius: 20px;
   float: right;
