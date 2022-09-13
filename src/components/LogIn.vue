@@ -9,10 +9,12 @@
     <label>Password:</label>
     <input type="password"  minlength="6" maxlength="30" required v-model="password" />
 
+
     <p v-if="err">That email or password is incorrect, please try again.</p>
     <button class="submit">Log in</button>
     <br>
     <br>
+
 
   </form>
 

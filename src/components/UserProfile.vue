@@ -56,7 +56,6 @@
 
     <label>Password</label>
     <p class="password">
-      {{ password }}
       <button
         class="submit"
         @click="
@@ -110,20 +109,75 @@
     </p>
     <br />
 
-    <label>Interests:</label>
-    <p>
-    <ul>
-      <li v-for="interest in interests" :key="interest">
-        <p>{{ interest + "&nbsp;" }}</p>
-      </li>
-    </ul>
-    </p>
-
-    <label>Friends:</label>
-    
-      <ul v-for="(friends, index) in friendsList" :key="friends">
-      <li @click="renderFriend(index)">{{friends}}</li>
+  <label>Interests:</label>
+    <div>
+      <ul class="interests">
+        <p v-for="interest in interests" :key="interest">
+          <p>{{ interest + "&nbsp;" }}</p>
+        </p>
       </ul>
+      <button
+        class="submit"
+        @click="
+          changeInterests();
+          clicked8 = !clicked8;
+          clicked9 = !clicked9;
+          clicked10 = !clicked10;
+          clicked11 = !clicked11;
+          clicked12 = !clicked12;
+          clicked13 = !clicked13;
+        "
+      >
+        Change interests
+      </button>
+      <div class="interest-list" v-if="clicked13">
+        <ul>
+          <input
+            v-if="clicked8"
+            type="checkbox"
+            value="art-and-collectibles"
+            v-model="interests"
+          />
+          <label>Art & Collectibles</label>
+
+          <input
+            v-if="clicked9"
+            type="checkbox"
+            value="jewelry-and-accessories"
+            v-model="interests"
+          />
+          <label>Jewelry & Accessories</label>
+          <input
+            v-if="clicked10"
+            type="checkbox"
+            value="home-and-living"
+            v-model="interests"
+          />
+          <label>Home & Living</label>
+          <input
+            v-if="clicked11"
+            type="checkbox"
+            value="clothing-and-shoes"
+            v-model="interests"
+          />
+          <label>Clothing & Shoes</label>
+          <input
+            v-if="clicked12"
+            type="checkbox"
+            value="toys-and-entertainment"
+            v-model="interests"
+          />
+          <label>Toys & Entertainment</label>
+        </ul>
+      </div>
+    </div>
+
+
+    <label class="friends">Friends:</label>
+    
+      <div  v-for="(friends, index) in friendsList" :key="friends">
+      <p @click="renderFriend(index)">{{friends}}</p>
+      </div>
     <br />
     <AddFriend/>
   </form>
@@ -151,6 +205,12 @@ export default {
             clicked4: "",
             clicked6: "",
             clicked7: "",
+            clicked8: "",
+            clicked9: "",
+            clicked10: "",
+            clicked11: "",
+            clicked12: "",
+            clicked13: "",
             friendsList: [],
             friendId: [],
         };
@@ -216,6 +276,14 @@ export default {
                 birth_year: this.year
             });
         },
+        changeInterests() {
+      axios.patch(
+        `https://be-present.fly.dev/users/${this.$route.params.userId}`,
+        {
+          interests: this.interests,
+        }
+      );
+    },
         renderFriend(index) {
             let clickedFriend = this.friendId[index];
             this.$router.push({ name: "friend-profile", params: { userId: this.$route.params.userId, friendId: clickedFriend } });
@@ -232,6 +300,7 @@ export default {
 </script>
 
 <style>
+
 profile {
   max-width: 420px;
   margin: 30px auto;
@@ -253,9 +322,24 @@ button {
   background: #4e937a;
   border: 0;
   padding: 10px 20px;
-  margin-top: 20px;
+  margin-top: 0;
   color: white;
   border-radius: 20px;
   float: right;
 }
+
+label.friends {
+  margin: 0;
+}
+
+ul {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+}
+
+Ul.interests {
+  padding: 0;
+}
+
 </style>

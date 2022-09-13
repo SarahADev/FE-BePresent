@@ -30,9 +30,16 @@
     </div>
     <button class="submit">Generate Gift Ideas</button>
   </form>
-  <p>{{ interests }}</p>
-  <ul v-for="(item, index) in itemList" :key="index">
-    <li>{{ item }}</li>
+  <ul>
+    <li class="item-container" v-for="(item, index) in itemList" :key="index">
+      <img :src="item.itemImage" class="item-img" />
+      <h3>
+        <a :href="item.itemLink" target="_blank" class="item-name">{{
+          item.itemName
+        }}</a>
+      </h3>
+      <p class="item-price">£{{ item.itemPrice }}</p>
+    </li>
   </ul>
 </template>
 
@@ -47,16 +54,10 @@ export default {
   },
   methods: {
     handleGenerate() {
-      console.log("Handling the generator...");
-      this.webScraper();
-    },
-    webScraper() {
       let self = this;
-      console.log("in WS");
       const cheerio = require("cheerio");
       const categories = this.interests;
       categories.map((category) => {
-        console.log("in map", category);
         let url = `https://api.scraperapi.com?api_key=ff689ac484f512bf24e0ab3723745de9&url=https://www.etsy.com/uk/c/${category}`;
         let newItemList = [];
         axios(url)
@@ -73,7 +74,10 @@ export default {
                 .trim();
               const itemLink = $(this).attr("href");
               const itemImage = $(this).find("img.wt-width-full").attr();
-              const itemPrice = $(this).find("span.currency-value").text();
+              const itemPrice = $(this)
+                .find("p.wt-text-title-01.lc-price")
+                .find("span.currency-value")
+                .text();
               newItemList.push({
                 itemName,
                 itemLink,
@@ -83,7 +87,7 @@ export default {
               });
             });
             console.log(newItemList, "item list");
-            self.itemList = newItemList;
+            self.itemList = newItemList.slice(16);
           })
           .catch((err) => {
             console.log(err, "error");
@@ -112,31 +116,16 @@ label {
   letter-spacing: 1px;
   font-weight: bold;
 }
-input,
-select {
-  display: block;
-  padding: 10px 6px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid #ef767a;
-  color: #555;
-}
 input[type="checkbox"] {
   display: inline-block;
   width: 16px;
   margin: 0 10px 0 0;
-  position: relative;
   top: 2px;
-}
-label.terms {
-  color: #555;
 }
 button {
   background: #4e937a;
   border: 0;
   padding: 10px 20px;
-  margin-top: 20px;
   color: white;
   border-radius: 20px;
 }
@@ -145,21 +134,35 @@ button {
 }
 .error {
   color: red;
-  font-size: 0.6em;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: bold;
 }
-.dob {
+
+.item-container {
+  max-width: 420px;
+  height: 420px;
+  margin: 10px auto;
+  padding: 20px;
   display: flex;
-  align-content: center;
+  flex-direction: column;
+  background: #f6f7f8;
+  border-radius: 10px;
 }
-.date-eg,
-.or {
-  color: rgb(184, 184, 184);
-  font-size: 0.6em;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: bold;
+
+.item-img {
+  align-self: center;
+  width: 300px;
+  border-radius: 5px;
+  margin: 10px 10px 20px 10px;
+}
+
+.item-price {
+  font-size: 1rem;
+}
+
+.item-name {
+  font-size: 1rem;
 }
 </style>
