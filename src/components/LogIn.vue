@@ -8,7 +8,7 @@
     <label>Password:</label>
     <input type="password"  minlength="6" maxlength="30" required v-model="password" />
 
-    <button class="submit">Login</button>
+    <button>Login</button>
 
   </form>
 
