@@ -134,6 +134,7 @@
 import axios from "axios";
 import AddFriend from "./AddFriend.vue";
 export default {
+
     data() {
         return {
             firstName: "",
@@ -172,6 +173,7 @@ export default {
                     this.friendId.push(connection);
                 });
             });
+
         });
     },
     methods: {
