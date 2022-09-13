@@ -1,10 +1,15 @@
 <template>
+  <Header />
 
-  <nav>
-  </nav>
-  <router-link to='/presents'>Presents</router-link>
+  <!-- <router-link to='/presents'>Presents</router-link> -->
   <router-view/>
 </template>
+
+<script>
+  export default {
+
+  }
+</script>
 
 <style>
 #app {

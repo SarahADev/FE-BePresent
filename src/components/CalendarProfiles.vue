@@ -1,7 +1,6 @@
 <template>
     <section>
-        <h2>This Month:</h2>
-        <h3>{{currentMonth}}</h3>
+        <h2>{{currentMonth}}</h2>
         <div>
             <ul v-for="(friend, index) in monthBirthdays" :key="index" class="curr-month-list">
             <li class="listed-friend">
@@ -81,3 +80,7 @@ import axios from 'axios'
        
     }
 </script>
+
+<style>
+   
+</style>
