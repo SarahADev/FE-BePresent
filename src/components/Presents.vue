@@ -1,6 +1,6 @@
 <template>
-  <Header/>
-  <Navbar/>
+  <Header />
+  <Navbar />
   <form @submit="handleGenerate">
     <label for="budget" placeholder="10">Budget:</label>
     <input type="number" required v-model="budget" />
@@ -50,7 +50,12 @@
     </div>
   </form>
   <div class="loading" v-if="loading"></div>
+  <p v-if="error" class="error">
+    Oops! Something went wrong. Please try again...
+  </p>
+  
   <ul>
+    <li><button v-if="fullItemList" v-on:click="randomise" class="reroll">Show me more</button></li>
     <li class="item-container" v-for="(item, index) in itemList" :key="index">
       <img :src="item.itemImage" class="item-img" />
       <h3>
@@ -73,16 +78,18 @@ export default {
       budget: null,
       interests: [],
       itemList: [],
-      loading : false
+      loading: false,
+      error: false,
+      fullItemList: null,
     };
   },
   methods: {
     handleGenerate() {
       let self = this;
-      self.loading = true
+      self.loading = true;
       const cheerio = require("cheerio");
       const categories = this.interests;
-      let fullItemList = [];
+      self.fullItemList = [];
       let count = 0;
       categories.map((category) => {
         let url = `https://api.scraperapi.com?api_key=ff689ac484f512bf24e0ab3723745de9&url=https://www.etsy.com/uk/c/${category}`;
@@ -112,30 +119,38 @@ export default {
                 category,
               });
             });
-            fullItemList.push(newItemList.slice(16));
-            fullItemList = fullItemList.flat();
-            const randomArr = [];
-            while (randomArr.length < 9) {
-              const budgetItem =
-                fullItemList[Math.floor(Math.random() * fullItemList.length)];
-              if (self.budget < 0 || self.budget === null) {
-                randomArr.push(budgetItem);
-              } else if (budgetItem.itemPrice <= self.budget) {
-                randomArr.push(budgetItem);
-              }
-            }
+            self.fullItemList.push(newItemList.slice(16));
+            self.fullItemList = self.fullItemList.flat();
             if (count === categories.length) {
-              self.loading = false
-              self.itemList = randomArr;
+              self.randomise();
             }
           })
           .catch((err) => {
-            console.log(err, "error");
+            self.error = true;
+            self.loading = false;
+            console.log("ERROR IN REQUEST", err);
           });
       });
     },
+    randomise() {
+      if (this.fullItemList) {
+        const randomArr = [];
+        while (randomArr.length < 9) {
+          const budgetItem = this.fullItemList[Math.floor(Math.random() * this.fullItemList.length)];
+          if (this.budget < 0 || this.budget === null) {
+            randomArr.push(budgetItem);
+          } else if (budgetItem.itemPrice <= this.budget) {
+            randomArr.push(budgetItem);
+          }
+        }
+        this.itemList = randomArr;
+        this.loading = false
+      } else {
+        console.log("cannot reload without generating results");
+      }
+    },
   },
-  components: { Header, Navbar }
+  components: { Header, Navbar },
 };
 </script>
 
@@ -215,7 +230,7 @@ ul.interests {
   justify-content: flex-start;
 }
 .loading {
-  border: 16px solid #f6f7f8; 
+  border: 16px solid #f6f7f8;
   border-top: 16px solid #4e937a;
   border-radius: 50%;
   width: 80px;
@@ -225,7 +240,15 @@ ul.interests {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.reroll{
+  font-size: 1em;
 }
 </style>
