@@ -68,45 +68,30 @@
       <p v-if="success">Password changed successfully!</p>
     </p>
     <br />
-
+    <div class="edit-birthday">
     <label>Birthday: </label>
     <p class="birthday">
       {{ day }} / {{ month }} / {{ year }}
       <button
         class="submit"
+        id="birthday-button"
         @click="
-          changeBirthDay();
+          changeDOB();
           clicked5 = !clicked5;
-        "
-      >
-        Edit day
-      </button>
-      <input v-if="clicked5" type="text" required v-model="day" />
-
-      <button
-        class="submit"
-        @click="
-          changeBirthMonth();
           clicked6 = !clicked6;
-        "
-      >
-        Edit month
-      </button>
-      <input v-if="clicked6" type="text" required v-model="month" />
-
-      
-      <button
-        class="submit"
-        @click="
-          changeBirthYear();
           clicked7 = !clicked7;
         "
       >
-        Edit year
+        Edit
       </button>
+      <span>
+      <input v-if="clicked5" type="text" placeholder="DD" required v-model="day" />
+      <input v-if="clicked6" type="text" required v-model="month" />
       <input v-if="clicked7" type="text" required v-model="year" />
+    </span>
 
     </p>
+  </div>
     <br />
 
   <label>Interests:</label>
@@ -173,13 +158,17 @@
     </div>
 
 
+    <div class="edit-friends">
     <label class="friends">Friends:</label>
     
       <div  v-for="(friends, index) in friendsList" :key="friends">
       <p @click="renderFriend(index)">{{friends}}</p>
       </div>
+    </div>
     <br />
+    <div class="add-friend">
     <AddFriend/>
+  </div>
     </div>
 </template>
 
@@ -242,6 +231,12 @@ export default {
         });
     },
     methods: {
+
+        changeDOB() {
+          this.changeBirthDay()
+          this.changeBirthMonth()
+          this.changeBirthYear()
+        },
         changeName() {
             axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 first_name: this.firstName,
@@ -325,7 +320,7 @@ span {
 button {
   background: #4e937a;
   border: 0;
-  padding: 10px 20px;
+  padding: 2px 2px;
   margin-top: 0;
   color: white;
   border-radius: 20px;
@@ -342,8 +337,21 @@ ul {
   padding: 0;
 }
 
-Ul.interests {
+ul.interests {
   padding: 0;
+}
+#birthday-button {
+  flex-direction: column;
+}
+/* .edit-birthday {
+
+} */
+.add-friend {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.edit-friend {
+  margin-top: 0px;
 }
 
 </style>
