@@ -2,7 +2,7 @@
   <Header />
   <Navbar />
   <form @submit="handleGenerate">
-    <p>{{this.$route.query.name + " " + "likes:"}}</p>
+    <p v-if="this.$route.query.name">{{this.$route.query.name + " " + "likes:"}}</p>
     <ul v-for= "categories in this.$route.query.categories" :key="categories">
       <li>{{categories}}</li>
     </ul>
