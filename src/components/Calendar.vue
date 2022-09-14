@@ -143,10 +143,6 @@
                 this.friendId.map((friend, index) => {
                     axios.get(`https://be-present.fly.dev/users/${friend}`)
                     .then(({data}) => {
-                        // this.friendList.push(data.user) 
-                        // this.friendFirstName.push(data.user.first_name)
-                        // this.friendLastName.push(data.user.last_name)
-                        // this.friendBirthDay.push(data.user.birth_day)
                         const monthNum = data.user.birth_month
                         const dayNum = data.user.birth_day
                         const firstName = data.user.first_name
@@ -196,13 +192,12 @@
         text-align: left;
         padding: 20px;
         border-radius: 10px;
+        min-height: 30px
     }
     .birthday-list {
         display: grid;
         text-align: left;
-        justify-content: center;
-        /* float:left; */
-    
+        justify-content: center;    
     }
     span {
         color: #eeeff0;
@@ -218,15 +213,12 @@
         text-transform: uppercase;
         letter-spacing: 1px;
         font-weight: bold;
-        text-align:start;
-        
+        text-align: right;
     }
     h3 {
         color: #EF767A;
         float:left;
         margin:auto
-        
-        /* margin-right: 1em; */
     }
    
 </style>

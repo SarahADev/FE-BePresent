@@ -27,13 +27,11 @@
                 
             async getUserByEmail() {
                 let result = await axios.get('https://be-present.fly.dev/users')
-                console.log(result)
             },
             handleSubmit(){
 
                 result.filter((user) => {
                     const friend = user.email === this.email
-                    console.log(friend)
                 })
                 
         }

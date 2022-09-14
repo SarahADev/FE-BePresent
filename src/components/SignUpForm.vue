@@ -1,5 +1,6 @@
 <template>
   <section>
+    <Header/>
     <form @submit="handleSubmit">
       <h2>Create Account</h2>
 
@@ -20,8 +21,6 @@
         required
         v-model="password"
       />
-      <!-- <div v-if="passwordError" class="error">{{ passwordError }}</div> -->
-
       <label for="">Date of Birth:</label>
       <div class="dob">
         <input type="text" minlength="2" maxlength="2" v-model="day" />
@@ -29,58 +28,52 @@
         <input type="text" minlength="2" maxlength="2" v-model="month" />
         <p>/</p>
         <input type="text" minlength="4" maxlength="4" v-model="year" />
-        <!-- <div v-if="yearError" class="error">{{ yearError }}</div> -->
-
-        <!-- <input type="date" required v-model="dob"> -->
       </div>
       <p class="date-eg">format: day/month/year</p>
       <p class="date-eg">example: 01/01/1990</p>
 
       <label>Interests:</label>
       <div class="interest-list" required>
-        <ul>
-          <input
+        <ul class="interests">
+          <li>
+            <input
             type="checkbox"
             value="art-and-collectibles"
             v-model="interests"
-          />
-          <label>Art & Collectibles</label>
+            />
+            <label>Art & Collectibles</label>
+          </li>
+          <li>
           <input
             type="checkbox"
             value="jewelry-and-accessories"
             v-model="interests"
           />
           <label>Jewelry & Accessories</label>
+          </li>
+          <li>
           <input type="checkbox" value="home-and-living" v-model="interests" />
           <label>Home & Living</label>
+          </li>
+          <li>
           <input
             type="checkbox"
             value="clothing-and-shoes"
             v-model="interests"
           />
           <label>Clothing & Shoes</label>
+          </li>
+          <li>
           <input
             type="checkbox"
             value="toys-and-entertainment"
             v-model="interests"
           />
           <label>Toys & Entertainment</label>
+          </li>
         </ul>
-        <!-- 'jewelry-and-accessories', 'clothing-and-shoes', 'home-and-living', 'wedding-and-party', 'toys-and-entertainment', 'art-and-collectibles' -->
       </div>
-
       <br />
-
-      <div class="terms">
-        <input type="checkbox" v-model="terms" required />
-        <label>Accept Terms and Conditions</label>
-      </div>
-
-      <div class="terms">
-        <input type="checkbox" v-model="reminders" />
-        <label>Recieve email reminders for your upcoming events</label>
-      </div>
-
       <div class="center">
         <button>Create Account</button>
       </div>
@@ -91,19 +84,11 @@
       <button @click="$router.push('/')">Already have an account?</button>
     </div>
   </section>
-  <!-- <p>first name: {{ firstName }}</p>
-    <p>last name: {{ lastName }}</p>
-    <p>Email: {{ email }}</p>
-    <p>Password: {{ password }}</p> -->
-  <!-- <p>PasswordError: {{passwordError}}</p>
-    <p>yearError: {{yearError}}</p> -->
-  <!-- <p>Date of Birth: {{day}} / {{month}} / {{year}}</p>
-    <p>Terms Accepted: {{terms}}</p>
-    <p>Preferences: {{interests}}</p> -->
 </template>
 
 <script>
 import axios from "axios";
+import Header from './Header.vue'
 export default {
   data() {
     return {
@@ -117,8 +102,6 @@ export default {
       reminders: true,
       terms: false,
       interests: [],
-      passwordError: "",
-      // yearError: ''
     };
   },
   methods: {
@@ -143,6 +126,7 @@ export default {
       this.$router.push("/");
     },
   },
+  components: {Header}
 };
 </script>
 
@@ -215,5 +199,11 @@ button {
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: bold;
+}
+ul.interests {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 22px;
 }
 </style>
