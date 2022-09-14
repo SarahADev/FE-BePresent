@@ -2,6 +2,11 @@
   <Header/>
   <Navbar/>
   <form @submit="handleGenerate">
+    <p>{{this.$route.query.name + " " + "likes:"}}</p>
+    <ul v-for= "categories in this.$route.query.categories" :key="categories">
+      <li>{{categories}}</li>
+    </ul>
+    <br>
     <label for="budget" placeholder="10">Budget:</label>
     <input type="number" required v-model="budget" />
     <label>Interests:</label>
@@ -11,6 +16,7 @@
           <input
             type="checkbox"
             value="art-and-collectibles"
+            checked
             v-model="interests"
           />
           <label>Art & Collectibles</label>
