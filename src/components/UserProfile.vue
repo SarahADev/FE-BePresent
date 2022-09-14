@@ -1,7 +1,7 @@
 <template>
   <Header/>
   <Navbar/>
-  <form class="profile">
+  <div class="profile">
     <h2>Your Account</h2>
     <label>First Name</label>
     <p class="firstName">
@@ -53,64 +53,53 @@
 
     <label>Password</label>
     <p class="password">
-      <button
+      ********
+      <button 
         @click="
           changePassword();
           clicked4 = !clicked4;
         "
-      >
+        >
         Edit
       </button>
-      <input v-if="clicked4" type="password" v-model="password" />
+      <input v-if="clicked4" 
+      type="password"
+      v-model="password" />
+      <p v-if="success">Password changed successfully!</p>
     </p>
     <br />
-
+    <div class="edit-birthday">
     <label>Birthday: </label>
     <p class="birthday">
-      {{ day }} {{ month }} {{ year }}
+      {{ day }} / {{ month }} / {{ year }}
       <button
         class="submit"
+        id="birthday-button"
         @click="
-          changeBirthDay();
+          changeDOB();
           clicked5 = !clicked5;
-        "
-      >
-        Edit day
-      </button>
-      <input v-if="clicked5" type="text" required v-model="day" />
-
-      <button
-        class="submit"
-        @click="
-          changeBirthMonth();
           clicked6 = !clicked6;
-        "
-      >
-        Edit month
-      </button>
-      <input v-if="clicked6" type="text" required v-model="month" />
-
-      
-      <button
-        class="submit"
-        @click="
-          changeBirthYear();
           clicked7 = !clicked7;
         "
       >
-        Edit year
+        Edit
       </button>
+      <span>
+      <input v-if="clicked5" type="text" placeholder="DD" required v-model="day" />
+      <input v-if="clicked6" type="text" required v-model="month" />
       <input v-if="clicked7" type="text" required v-model="year" />
+    </span>
 
     </p>
+  </div>
     <br />
 
   <label>Interests:</label>
     <div>
       <ul class="interests">
-        <p v-for="interest in interests" :key="interest">
+        <li v-for="interest in interests" :key="interest">
           <p>{{ interest + "&nbsp;" }}</p>
-        </p>
+        </li>
       </ul>
       <button
         class="submit"
@@ -169,14 +158,18 @@
     </div>
 
 
+    <div class="edit-friends">
     <label class="friends">Friends:</label>
     
       <div  v-for="(friends, index) in friendsList" :key="friends">
       <p @click="renderFriend(index)">{{friends}}</p>
       </div>
+    </div>
     <br />
+    <div class="add-friend">
     <AddFriend/>
-  </form>
+  </div>
+    </div>
 </template>
 
 
@@ -211,6 +204,7 @@ export default {
             clicked13: "",
             friendsList: [],
             friendId: [],
+            success: false,
         };
     },
     beforeMount() {
@@ -234,42 +228,47 @@ export default {
         });
     },
     methods: {
+
+        changeDOB() {
+          this.changeBirthDay()
+          this.changeBirthMonth()
+          this.changeBirthYear()
+        },
         changeName() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 first_name: this.firstName,
             });
         },
         changeLastName() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 last_name: this.lastName,
             });
         },
         changeEmail() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 email: this.email,
             });
         },
         changePassword() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 password: this.password,
-            }).then((res) => {
-                console.log(res.data);
-            }).catch((err) => {
-                console.log(err);
-            });
+            }).then(() => {
+              this.success = true
+            })
+            .catch(() => {})
         },
         changeBirthDay() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 birth_day: this.day,
             });
         },
         changeBirthMonth() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 birth_month: this.month,
             });
         },
         changeBirthYear() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 birth_year: this.year
             });
         },
@@ -298,7 +297,7 @@ export default {
 
 <style>
 
-profile {
+.profile {
   max-width: 420px;
   margin: 30px auto;
   background: #f6f7f8;
@@ -318,7 +317,7 @@ span {
 button {
   background: #4e937a;
   border: 0;
-  padding: 10px 20px;
+  padding: 2px 2px;
   margin-top: 0;
   color: white;
   border-radius: 20px;
@@ -335,8 +334,21 @@ ul {
   padding: 0;
 }
 
-Ul.interests {
+ul.interests {
   padding: 0;
+}
+#birthday-button {
+  flex-direction: column;
+}
+/* .edit-birthday {
+
+} */
+.add-friend {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.edit-friend {
+  margin-top: 0px;
 }
 
 </style>
