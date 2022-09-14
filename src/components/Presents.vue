@@ -2,37 +2,54 @@
   <Header/>
   <Navbar/>
   <form @submit="handleGenerate">
+    <label for="budget" placeholder="10">Budget:</label>
+    <input type="number" required v-model="budget" />
     <label>Interests:</label>
     <div class="interest-list" required>
-      <ul>
-        <input
-          type="checkbox"
-          value="art-and-collectibles"
-          v-model="interests"
-        />
-        <label>Art & Collectibles</label>
-        <input
-          type="checkbox"
-          value="jewelry-and-accessories"
-          v-model="interests"
-        />
-        <label>Jewelry & Accessories</label>
-        <input type="checkbox" value="home-and-living" v-model="interests" />
-        <label>Home & Living</label>
-        <input type="checkbox" value="clothing-and-shoes" v-model="interests" />
-        <label>Clothing & Shoes</label>
-        <input
-          type="checkbox"
-          value="toys-and-entertainment"
-          v-model="interests"
-        />
-        <label>Toys & Entertainment</label>
+      <ul class="interests">
+        <li>
+          <input
+            type="checkbox"
+            value="art-and-collectibles"
+            v-model="interests"
+          />
+          <label>Art & Collectibles</label>
+        </li>
+        <li>
+          <input
+            type="checkbox"
+            value="jewelry-and-accessories"
+            v-model="interests"
+          />
+          <label>Jewelry & Accessories</label>
+        </li>
+        <li>
+          <input type="checkbox" value="home-and-living" v-model="interests" />
+          <label>Home & Living</label>
+        </li>
+        <li>
+          <input
+            type="checkbox"
+            value="clothing-and-shoes"
+            v-model="interests"
+          />
+          <label>Clothing & Shoes</label>
+        </li>
+        <li>
+          <input
+            type="checkbox"
+            value="toys-and-entertainment"
+            v-model="interests"
+          />
+          <label>Toys & Entertainment</label>
+        </li>
       </ul>
     </div>
     <div class="center">
       <button class="submit">Generate Gift Ideas</button>
     </div>
   </form>
+  <div class="loading" v-if="loading"></div>
   <ul>
     <li class="item-container" v-for="(item, index) in itemList" :key="index">
       <img :src="item.itemImage" class="item-img" />
@@ -51,75 +68,77 @@ import Header from "./Header.vue";
 import Navbar from "./Navbar.vue";
 const axios = require("axios");
 export default {
-    data() {
-        return {
-            interests: [],
-            itemList: [],
-        };
-    },
-    methods: {
-        handleGenerate() {
-            let self = this;
-            const cheerio = require("cheerio");
-            const categories = this.interests;
-            let fullItemList = [];
-            let count = 0;
-            categories.map((category) => {
-                let url = `https://api.scraperapi.com?api_key=ff689ac484f512bf24e0ab3723745de9&url=https://www.etsy.com/uk/c/${category}`;
-                let newItemList = [];
-                axios(url)
-                    .then(function (response) {
-                    count++;
-                    let html = response.data;
-                    let $ = cheerio.load(html);
-                    $("a.listing-link").each(function () {
-                        const itemName = $(this)
-                            .find("div.v2-listing-card__info")
-                            .find("h2")
-                            .text()
-                            .trim();
-                        const itemLink = $(this).attr("href");
-                        const itemImage = $(this).find("img.wt-width-full").attr();
-                        const itemPrice = $(this)
-                            .find("p.wt-text-title-01.lc-price")
-                            .find("span.currency-value")
-                            .text();
-                        newItemList.push({
-                            itemName,
-                            itemLink,
-                            itemImage: itemImage["data-src"],
-                            itemPrice,
-                            category,
-                        });
-                    });
-                    fullItemList.push(newItemList.slice(16));
-                    fullItemList = fullItemList.flat();
-                    // self.itemList = fullItemList.concat(newItemList.slice(16))
-                    console.log(fullItemList, "trying to flatten it");
-                    const randomArr = [];
-                    while (randomArr.length < 9) {
-                        const budgetItem = fullItemList[Math.floor(Math.random() * fullItemList.length)];
-                        if (budgetItem.itemPrice <= 10) {
-                            randomArr.push(budgetItem);
-                        }
-                    }
-                    if (count === categories.length) {
-                        self.itemList = randomArr;
-                        console.log(randomArr, "randomised");
-                    }
-                })
-                    .catch((err) => {
-                    console.log(err, "error");
-                });
+  data() {
+    return {
+      budget: null,
+      interests: [],
+      itemList: [],
+      loading : false
+    };
+  },
+  methods: {
+    handleGenerate() {
+      let self = this;
+      self.loading = true
+      const cheerio = require("cheerio");
+      const categories = this.interests;
+      let fullItemList = [];
+      let count = 0;
+      categories.map((category) => {
+        let url = `https://api.scraperapi.com?api_key=ff689ac484f512bf24e0ab3723745de9&url=https://www.etsy.com/uk/c/${category}`;
+        let newItemList = [];
+        axios(url)
+          .then(function (response) {
+            count++;
+            let html = response.data;
+            let $ = cheerio.load(html);
+            $("a.listing-link").each(function () {
+              const itemName = $(this)
+                .find("div.v2-listing-card__info")
+                .find("h2")
+                .text()
+                .trim();
+              const itemLink = $(this).attr("href");
+              const itemImage = $(this).find("img.wt-width-full").attr();
+              const itemPrice = $(this)
+                .find("p.wt-text-title-01.lc-price")
+                .find("span.currency-value")
+                .text();
+              newItemList.push({
+                itemName,
+                itemLink,
+                itemImage: itemImage["data-src"],
+                itemPrice,
+                category,
+              });
             });
-            //   outside map
-        },
+            fullItemList.push(newItemList.slice(16));
+            fullItemList = fullItemList.flat();
+            const randomArr = [];
+            while (randomArr.length < 9) {
+              const budgetItem =
+                fullItemList[Math.floor(Math.random() * fullItemList.length)];
+              if (self.budget < 0 || self.budget === null) {
+                randomArr.push(budgetItem);
+              } else if (budgetItem.itemPrice <= self.budget) {
+                randomArr.push(budgetItem);
+              }
+            }
+            if (count === categories.length) {
+              self.loading = false
+              self.itemList = randomArr;
+            }
+          })
+          .catch((err) => {
+            console.log(err, "error");
+          });
+      });
     },
     components: { Header, Navbar }
 };
 </script>
 
-<style>
+<style scoped>
 form {
   max-width: 420px;
   margin: 30px auto;
@@ -132,7 +151,7 @@ label {
   color: #ea9010;
   display: inline-block;
   margin: 25px 0 15px;
-  font-size: 0.6em;
+  font-size: 1em;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: bold;
@@ -188,5 +207,25 @@ button {
 
 .item-name {
   font-size: 1rem;
+}
+ul.interests {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.loading {
+  border: 16px solid #f6f7f8; 
+  border-top: 16px solid #4e937a;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+  margin: 5px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>
