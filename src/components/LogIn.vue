@@ -1,29 +1,34 @@
 <template>
 <Header/>
   <section>
+
   <form @submit="checkUser">
     <h2>Log In</h2>
     <label for="">Email:</label>
     <input type="email" required v-model="email" />
 
-    <label>Password:</label>
-    <input type="password"  minlength="6" maxlength="30" required v-model="password" />
-
-
-    <p v-if="err">That email or password is incorrect, please try again.</p>
-    <button class="submit">Log in</button>
-    <br>
-    <br>
-
-
-  </form>
-
-  <p class="or">or</p>
-
-  <button class="signup-button" @click="$router.push('signup')">Create Account</button>
-  <br>
-
+      <label>Password:</label>
+      <input
+        type="password"
+        minlength="6"
+        maxlength="30"
+        required
+        v-model="password"
+      />
+      <div class="center">
+        <button>Login</button>
+      </div>
+      </form>
+      <p v-if="err">That email or password is incorrect, please try again.</p>
+    <div class="center">
+    <button class="center">Log in</button>
+    </div>
+    
  
+  <p class="or">or</p>
+<div class="center">
+  <button class="signup-button" @click="$router.push('signup')">Create Account</button>
+  </div>
 </section>
 </template>
 
@@ -59,11 +64,7 @@ import Header from './Header.vue';
 
 </script>
 
-
-
 <style>
-  
-
   form {
     
     max-width: 420px;
@@ -102,6 +103,11 @@ import Header from './Header.vue';
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
+  }
+  .center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   }
  /* template {
     background-image: url("../../public/bg1.png");
