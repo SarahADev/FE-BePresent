@@ -1,6 +1,7 @@
 <template>
+  <Header/>
+  <Navbar/>
   <form class="profile">
-    <Navbar/>
     <h2>Your Account</h2>
     <label>First Name</label>
     <p class="firstName">
@@ -53,7 +54,6 @@
     <label>Password</label>
     <p class="password">
       <button
-        class="submit"
         @click="
           changePassword();
           clicked4 = !clicked4;
@@ -184,6 +184,7 @@
 import axios from "axios";
 import AddFriend from "./AddFriend.vue";
 import Navbar from "./Navbar.vue";
+import Header from "./Header.vue";
 export default {
 
     data() {
@@ -294,7 +295,7 @@ export default {
             this.$router.push({ name: `user-profile`, params: { userId: this.$route.params.userId } });
         },
     },
-    components: { AddFriend, Navbar }
+    components: { AddFriend, Navbar, Header }
 };
 </script>
 

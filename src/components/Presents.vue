@@ -134,7 +134,8 @@ export default {
           });
       });
     },
-    components: { Header, Navbar }
+  },
+  components: { Header, Navbar }
 };
 </script>
 
@@ -213,7 +214,6 @@ ul.interests {
   flex-direction: column;
   justify-content: flex-start;
 }
-
 .loading {
   border: 16px solid #f6f7f8; 
   border-top: 16px solid #4e937a;
