@@ -28,7 +28,9 @@
       </ul>
       <!-- 'jewelry-and-accessories', 'clothing-and-shoes', 'home-and-living', 'wedding-and-party', 'toys-and-entertainment', 'art-and-collectibles' -->
     </div>
-    <button>Generate Gift Ideas</button>
+    <div class="center">
+      <button class="submit">Generate Gift Ideas</button>
+    </div>
   </form>
   <ul>
     <li class="item-container" v-for="(item, index) in itemList" :key="index">
@@ -142,11 +144,14 @@ button {
   background: #4e937a;
   border: 0;
   padding: 10px 20px;
+  margin-top: 0;
   color: white;
   border-radius: 20px;
 }
-.submit {
-  text-align: center;
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .error {
   color: red;
