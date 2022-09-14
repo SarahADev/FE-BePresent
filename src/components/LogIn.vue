@@ -1,6 +1,8 @@
 <template>
+
   <Header />
   <section>
+
     <form @submit="checkUser">
       <h2>Log In</h2>
       <label for="">Email:</label>
