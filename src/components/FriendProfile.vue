@@ -30,7 +30,7 @@
       </p>
     </div>
     </p>
-
+    <button @click="getPresents()">{{`Find presents for ${firstName}!`}}</button>
     <button @click="deleteFriend()">Delete friend</button>
   </form>
 
@@ -76,6 +76,9 @@ export default {
                 this.$router.push({ name: "user-profile", params: { userId: this.$route.params.userId } });
             });
         },
+        getPresents() {
+                this.$router.push({ name: `presents`, params: { userId: this.$route.params.userId }, query: {name: this.firstName, categories: this.interests} });
+                },
     },
     components: { Header, Navbar }
 };

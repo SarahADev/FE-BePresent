@@ -6,108 +6,108 @@
         <h3>January</h3>
         <span>01</span>
         <ul v-for="(friend, index) in january" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>February</h3>
         <span>02</span>
         <ul v-for="(friend, index) in february" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>March</h3>
         <span>03</span>
         <ul v-for="(friend, index) in march" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>April</h3>
         <span>04</span>
         <ul v-for="(friend, index) in april" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>May</h3>
         <span>05</span>
         <ul v-for="(friend, index) in may" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>June</h3>
         <span>06</span>
         <ul v-for="(friend, index) in june" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>July</h3>
         <span>07</span>
         <ul v-for="(friend, index) in july" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>August</h3>
         <span>08</span>
         <ul v-for="(friend, index) in august" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>September</h3>
         <span>08</span>
         <ul v-for="(friend, index) in september" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>October</h3>
         <span>08</span>
         <ul v-for="(friend, index) in october" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>November</h3>
         <span>08</span>
         <ul v-for="(friend, index) in november" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>December</h3>
         <span>08</span>
         <ul v-for="(friend, index) in december" :key="index" class="birthday-list">
-            <li>
+            <button @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
         </ul>
     </div>
 </div>
@@ -139,45 +139,50 @@
                 `https://be-present.fly.dev/users/${this.$route.params.userId}`
             )
             .then(({data}) => {
-                this.friendId = data.user.connections
-                this.friendId.map((friend, index) => {
+                this.friends = data.user.connections
+                this.friends.map((friend, index) => {
                     axios.get(`https://be-present.fly.dev/users/${friend}`)
                     .then(({data}) => {
+                        const friendId = data.user.user_id
                         const monthNum = data.user.birth_month
                         const dayNum = data.user.birth_day
                         const firstName = data.user.first_name
                         const lastName = data.user.last_name
-
                         switch(monthNum) {
-                            case '01' : this.january.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '01' : this.january.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '02' : this.february.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '02' : this.february.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '03' : this.march.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '03' : this.march.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '04' : this.april.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '04' : this.april.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '05' : this.may.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '05' : this.may.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '06' : this.june.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '06' : this.june.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '07' : this.july.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '07' : this.july.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '08' : this.august.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '08' : this.august.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '09' : this.september.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '09' : this.september.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '10' : this.october.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '10' : this.october.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '11' : this.november.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '11' : this.november.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                                 break;
-                            case '12' : this.december.push({name: firstName + ' ' + lastName, birthday: dayNum});
+                            case '12' : this.december.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
                         }
                 });
             })
         })
         },
-    }
+        methods: {
+            handleClick (friendId) {
+                this.$router.push({ name: "friend-profile", params: { userId: this.$route.params.userId, friendId } });
+            },
+        },
+    };
 
 </script>
 

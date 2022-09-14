@@ -179,7 +179,6 @@ import AddFriend from "./AddFriend.vue";
 import Navbar from "./Navbar.vue";
 import Header from "./Header.vue";
 export default {
-
     data() {
         return {
             firstName: "",
@@ -206,7 +205,6 @@ export default {
             friendsList: [],
             friendId: [],
             success: false,
-            
         };
     },
     beforeMount() {
@@ -227,7 +225,6 @@ export default {
                     this.friendId.push(connection);
                 });
             });
-
         });
     },
     methods: {
