@@ -1,10 +1,6 @@
 <template>
   <form class="profile">
-    <nav>
-      <button @click="handleClickGetPresents">Get Presents!</button>
-      <button @click="handleClickHome">Home</button>
-      <button @click="handleClickProfile">My Profile</button>
-    </nav>
+    <Navbar/>
     <h2>Your Account</h2>
     <label>First Name</label>
     <p class="firstName">
@@ -16,7 +12,7 @@
           clicked1 = !clicked1;
         "
       >
-        Change Name
+        Edit
       </button>
       <input v-if="clicked1" type="name" required v-model="firstName" />
     </p>
@@ -32,7 +28,7 @@
           clicked2 = !clicked2;
         "
       >
-        Change Last Name
+        Edit
       </button>
       <input v-if="clicked2" type="name" required v-model="lastName" />
     </p>
@@ -48,7 +44,7 @@
           clicked3 = !clicked3;
         "
       >
-        Change Email
+        Edit
       </button>
       <input v-if="clicked3" type="name" required v-model="email" />
     </p>
@@ -63,7 +59,7 @@
           clicked4 = !clicked4;
         "
       >
-        Change Password
+        Edit
       </button>
       <input v-if="clicked4" type="password" v-model="password" />
     </p>
@@ -79,7 +75,7 @@
           clicked5 = !clicked5;
         "
       >
-        Change day
+        Edit day
       </button>
       <input v-if="clicked5" type="text" required v-model="day" />
 
@@ -90,7 +86,7 @@
           clicked6 = !clicked6;
         "
       >
-        Change month
+        Edit month
       </button>
       <input v-if="clicked6" type="text" required v-model="month" />
 
@@ -102,7 +98,7 @@
           clicked7 = !clicked7;
         "
       >
-        Change year
+        Edit year
       </button>
       <input v-if="clicked7" type="text" required v-model="year" />
 
@@ -128,7 +124,7 @@
           clicked13 = !clicked13;
         "
       >
-        Change interests
+        Edit
       </button>
       <div class="interest-list" v-if="clicked13">
         <ul>
@@ -187,6 +183,7 @@
 <script>
 import axios from "axios";
 import AddFriend from "./AddFriend.vue";
+import Navbar from "./Navbar.vue";
 export default {
 
     data() {
@@ -203,6 +200,7 @@ export default {
             clicked2: "",
             clicked3: "",
             clicked4: "",
+            clicked5: "",
             clicked6: "",
             clicked7: "",
             clicked8: "",
@@ -213,6 +211,7 @@ export default {
             clicked13: "",
             friendsList: [],
             friendId: [],
+            
         };
     },
     beforeMount() {
@@ -295,7 +294,7 @@ export default {
             this.$router.push({ name: `user-profile`, params: { userId: this.$route.params.userId } });
         },
     },
-    components: { AddFriend }
+    components: { AddFriend, Navbar }
 };
 </script>
 

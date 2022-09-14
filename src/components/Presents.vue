@@ -1,4 +1,6 @@
 <template>
+  <Header/>
+  <Navbar/>
   <form @submit="handleGenerate">
     <label for="budget" placeholder="10">Budget:</label>
     <input type="number" required v-model="budget" />
@@ -62,6 +64,8 @@
 </template>
 
 <script>
+import Header from "./Header.vue";
+import Navbar from "./Navbar.vue";
 const axios = require("axios");
 export default {
   data() {
@@ -130,7 +134,7 @@ export default {
           });
       });
     },
-  },
+    components: { Header, Navbar }
 };
 </script>
 

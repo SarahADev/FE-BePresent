@@ -1,4 +1,6 @@
 <template>
+  <Header/>
+  <Navbar/>
   <form class="profile">
     <h2> {{ firstName }} {{ lastName }}'s Profile</h2>
     <label>First Name</label>
@@ -38,44 +40,44 @@
 
 <script>
 import axios from "axios";
+import Header from "./Header.vue";
+import Navbar from "./Navbar.vue";
 
 export default {
-  
-  data() {
-    return {
-      firstName: "",
-      lastName: "",
-      day: "",
-      month: "",
-      year: "",
-      interests: "",
-    };
-  },
-  beforeMount() {
-    axios
-      .get(
-        `https://be-present.fly.dev/users/${this.$route.params.friendId}`
-      )
-      .then(({ data }) => {
-        this.firstName = data.user.first_name;
-        this.lastName = data.user.last_name;
-        this.month = data.user.birth_month;
-        this.day = data.user.birth_day;
-        this.year = data.user.birth_year;
-        this.interests = data.user.interests;
-      });      
-  },
-  methods: {
-    deleteFriend() {
-        axios.delete(`https://be-present.fly.dev/users/${this.$route.params.userId}/connections`, {
-          data: {
-            connection_id: this.$route.params.friendId
-          }
-        }).then(() => {
-            this.$router.push({ name: "user-profile", params: { userId: this.$route.params.userId}});
+    data() {
+        return {
+            firstName: "",
+            lastName: "",
+            day: "",
+            month: "",
+            year: "",
+            interests: "",
+        };
+    },
+    beforeMount() {
+        axios
+            .get(`https://be-present.fly.dev/users/${this.$route.params.friendId}`)
+            .then(({ data }) => {
+            this.firstName = data.user.first_name;
+            this.lastName = data.user.last_name;
+            this.month = data.user.birth_month;
+            this.day = data.user.birth_day;
+            this.year = data.user.birth_year;
+            this.interests = data.user.interests;
         });
     },
-  },
+    methods: {
+        deleteFriend() {
+            axios.delete(`https://be-present.fly.dev/users/${this.$route.params.userId}/connections`, {
+                data: {
+                    connection_id: this.$route.params.friendId
+                }
+            }).then(() => {
+                this.$router.push({ name: "user-profile", params: { userId: this.$route.params.userId } });
+            });
+        },
+    },
+    components: { Header, Navbar }
 };
 </script>
 
