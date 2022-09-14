@@ -1,9 +1,8 @@
 <template>
   <section>
     <Header/>
-    <form @submit="handleSubmit">
+    <form @submit="addUser">
       <h2>Create Account</h2>
-
       <label for="">First Name</label>
       <input type="name" required v-model="firstName" />
 
@@ -23,18 +22,17 @@
       />
       <label for="">Date of Birth:</label>
       <div class="dob">
-        <input type="text" minlength="2" maxlength="2" v-model="day" />
+        <input type="text" minlength="2" maxlength="2" v-model="day" required/>
         <p>/</p>
-        <input type="text" minlength="2" maxlength="2" v-model="month" />
+        <input type="text" minlength="2" maxlength="2" v-model="month" required/>
         <p>/</p>
-        <input type="text" minlength="4" maxlength="4" v-model="year" />
+        <input type="text" minlength="4" maxlength="4" v-model="year" required/>
       </div>
-      <p class="date-eg">format: day/month/year</p>
-      <p class="date-eg">example: 01/01/1990</p>
+      <p class="date-eg">format: DD/MM/YYYY</p>
 
       <label>Interests:</label>
-      <div class="interest-list" required>
-        <ul class="interests">
+      <div class="interest-list">
+        <ul class="interests" required>
           <li>
             <input
             type="checkbox"
@@ -77,7 +75,8 @@
       <div class="center">
         <button>Create Account</button>
       </div>
-    </form>
+      <p v-if="error">That email address is already registered!</p>
+      </form>
 
     <p class="or">or</p>
     <div class="center">
@@ -102,10 +101,12 @@ export default {
       reminders: true,
       terms: false,
       interests: [],
+      error: false,
     };
   },
   methods: {
     async addUser() {
+      this.error = false;
       await axios
         .post("https://be-present.fly.dev/users", {
           first_name: this.firstName,
@@ -117,13 +118,13 @@ export default {
           password: this.password,
           interests: this.interests,
         })
-        .catch((error) => {
-          console.log(error);
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          this.error = true;
+          console.log(err)
         });
-    },
-    handleSubmit() {
-      this.addUser();
-      this.$router.push("/");
     },
   },
   components: {Header}
