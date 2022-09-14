@@ -140,7 +140,7 @@
             )
             .then(({data}) => {
                 this.friends = data.user.connections
-                this.friends.map((friend, index) => {
+                this.friends.map((friend) => {
                     axios.get(`https://be-present.fly.dev/users/${friend}`)
                     .then(({data}) => {
                         const friendId = data.user.user_id
@@ -149,29 +149,41 @@
                         const firstName = data.user.first_name
                         const lastName = data.user.last_name
                         switch(monthNum) {
-                            case '01' : this.january.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '01' : this.january.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.january.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '02' : this.february.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '02' : this.february.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.february.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '03' : this.march.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '03' : this.march.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.march.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '04' : this.april.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '04' : this.april.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.april.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '05' : this.may.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '05' : this.may.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.may.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '06' : this.june.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '06' : this.june.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.june.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '07' : this.july.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '07' : this.july.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.july.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '08' : this.august.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '08' : this.august.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.august.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '09' : this.september.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '09' : this.september.push({name: firstName + ' ' + lastName, birthday: +dayNum, friendId}),
+                                        this.september.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '10' : this.october.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '10' : this.october.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.october.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '11' : this.november.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '11' : this.november.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.november.sort((a, b) => a.birthday - b.birthday);
                                 break;
-                            case '12' : this.december.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId});
+                            case '12' : this.december.push({name: firstName + ' ' + lastName, birthday: dayNum, friendId}),
+                                        this.december.sort((a, b) => a.birthday - b.birthday);
                         }
                 });
             })

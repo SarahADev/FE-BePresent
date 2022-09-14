@@ -92,6 +92,7 @@ export default {
   methods: {
     handleGenerate() {
       let self = this;
+      self.error = false;
       self.loading = true;
       const cheerio = require("cheerio");
       const categories = this.interests;
