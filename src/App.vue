@@ -1,14 +1,12 @@
 <template>
-  <Header />
+  <!-- <Header /> -->
 
   <!-- <router-link to='/presents'>Presents</router-link> -->
-  <router-view/>
+  <router-view />
 </template>
 
 <script>
-  export default {
-
-  }
+export default {};
 </script>
 
 <style>
