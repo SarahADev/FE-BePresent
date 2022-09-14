@@ -1,37 +1,53 @@
 <template>
   <form @submit="handleGenerate">
+    <label for="budget" placeholder="10">Budget:</label>
+    <input type="number" required v-model="budget" />
     <label>Interests:</label>
     <div class="interest-list" required>
-      <ul>
-        <input
-          type="checkbox"
-          value="art-and-collectibles"
-          v-model="interests"
-        />
-        <label>Art & Collectibles</label>
-        <input
-          type="checkbox"
-          value="jewelry-and-accessories"
-          v-model="interests"
-        />
-        <label>Jewelry & Accessories</label>
-        <input type="checkbox" value="home-and-living" v-model="interests" />
-        <label>Home & Living</label>
-        <input type="checkbox" value="clothing-and-shoes" v-model="interests" />
-        <label>Clothing & Shoes</label>
-        <input
-          type="checkbox"
-          value="toys-and-entertainment"
-          v-model="interests"
-        />
-        <label>Toys & Entertainment</label>
+      <ul class="interests">
+        <li>
+          <input
+            type="checkbox"
+            value="art-and-collectibles"
+            v-model="interests"
+          />
+          <label>Art & Collectibles</label>
+        </li>
+        <li>
+          <input
+            type="checkbox"
+            value="jewelry-and-accessories"
+            v-model="interests"
+          />
+          <label>Jewelry & Accessories</label>
+        </li>
+        <li>
+          <input type="checkbox" value="home-and-living" v-model="interests" />
+          <label>Home & Living</label>
+        </li>
+        <li>
+          <input
+            type="checkbox"
+            value="clothing-and-shoes"
+            v-model="interests"
+          />
+          <label>Clothing & Shoes</label>
+        </li>
+        <li>
+          <input
+            type="checkbox"
+            value="toys-and-entertainment"
+            v-model="interests"
+          />
+          <label>Toys & Entertainment</label>
+        </li>
       </ul>
-      <!-- 'jewelry-and-accessories', 'clothing-and-shoes', 'home-and-living', 'wedding-and-party', 'toys-and-entertainment', 'art-and-collectibles' -->
     </div>
     <div class="center">
       <button class="submit">Generate Gift Ideas</button>
     </div>
   </form>
+  <div class="loading" v-if="loading"></div>
   <ul>
     <li class="item-container" v-for="(item, index) in itemList" :key="index">
       <img :src="item.itemImage" class="item-img" />
@@ -50,13 +66,16 @@ const axios = require("axios");
 export default {
   data() {
     return {
+      budget: null,
       interests: [],
       itemList: [],
+      loading : false
     };
   },
   methods: {
     handleGenerate() {
       let self = this;
+      self.loading = true
       const cheerio = require("cheerio");
       const categories = this.interests;
       let fullItemList = [];
@@ -91,32 +110,31 @@ export default {
             });
             fullItemList.push(newItemList.slice(16));
             fullItemList = fullItemList.flat();
-            // self.itemList = fullItemList.concat(newItemList.slice(16))
-            console.log(fullItemList, "trying to flatten it");
             const randomArr = [];
             while (randomArr.length < 9) {
               const budgetItem =
                 fullItemList[Math.floor(Math.random() * fullItemList.length)];
-              if (budgetItem.itemPrice <= 10) {
+              if (self.budget < 0 || self.budget === null) {
+                randomArr.push(budgetItem);
+              } else if (budgetItem.itemPrice <= self.budget) {
                 randomArr.push(budgetItem);
               }
             }
             if (count === categories.length) {
+              self.loading = false
               self.itemList = randomArr;
-              console.log(randomArr, "randomised");
             }
           })
           .catch((err) => {
             console.log(err, "error");
           });
       });
-      //   outside map
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 form {
   max-width: 420px;
   margin: 30px auto;
@@ -129,7 +147,7 @@ label {
   color: #ea9010;
   display: inline-block;
   margin: 25px 0 15px;
-  font-size: 0.6em;
+  font-size: 1em;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: bold;
@@ -185,5 +203,25 @@ button {
 
 .item-name {
   font-size: 1rem;
+}
+ul.interests {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.loading {
+  border: 16px solid #f6f7f8; 
+  border-top: 16px solid #4e937a;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+  margin: 5px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>
