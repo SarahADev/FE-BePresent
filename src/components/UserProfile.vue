@@ -1,10 +1,6 @@
 <template>
   <form class="profile">
-    <nav>
-      <button @click="handleClickGetPresents">Get Presents!</button>
-      <button @click="handleClickHome">Home</button>
-      <button @click="handleClickProfile">My Profile</button>
-    </nav>
+    <Navbar/>
     <h2>Your Account</h2>
     <label>First Name</label>
     <p class="firstName">
@@ -187,6 +183,7 @@
 <script>
 import axios from "axios";
 import AddFriend from "./AddFriend.vue";
+import Navbar from "./Navbar.vue";
 export default {
 
     data() {
@@ -295,7 +292,7 @@ export default {
             this.$router.push({ name: `user-profile`, params: { userId: this.$route.params.userId } });
         },
     },
-    components: { AddFriend }
+    components: { AddFriend, Navbar }
 };
 </script>
 

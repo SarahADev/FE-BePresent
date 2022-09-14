@@ -1,4 +1,6 @@
 <template>
+  <Header/>
+  <Navbar/>
   <form @submit="handleGenerate">
     <label>Interests:</label>
     <div class="interest-list" required>
@@ -26,7 +28,6 @@
         />
         <label>Toys & Entertainment</label>
       </ul>
-      <!-- 'jewelry-and-accessories', 'clothing-and-shoes', 'home-and-living', 'wedding-and-party', 'toys-and-entertainment', 'art-and-collectibles' -->
     </div>
     <div class="center">
       <button class="submit">Generate Gift Ideas</button>
@@ -46,73 +47,75 @@
 </template>
 
 <script>
+import Header from "./Header.vue";
+import Navbar from "./Navbar.vue";
 const axios = require("axios");
 export default {
-  data() {
-    return {
-      interests: [],
-      itemList: [],
-    };
-  },
-  methods: {
-    handleGenerate() {
-      let self = this;
-      const cheerio = require("cheerio");
-      const categories = this.interests;
-      let fullItemList = [];
-      let count = 0;
-      categories.map((category) => {
-        let url = `https://api.scraperapi.com?api_key=ff689ac484f512bf24e0ab3723745de9&url=https://www.etsy.com/uk/c/${category}`;
-        let newItemList = [];
-        axios(url)
-          .then(function (response) {
-            count++;
-            let html = response.data;
-            let $ = cheerio.load(html);
-            $("a.listing-link").each(function () {
-              const itemName = $(this)
-                .find("div.v2-listing-card__info")
-                .find("h2")
-                .text()
-                .trim();
-              const itemLink = $(this).attr("href");
-              const itemImage = $(this).find("img.wt-width-full").attr();
-              const itemPrice = $(this)
-                .find("p.wt-text-title-01.lc-price")
-                .find("span.currency-value")
-                .text();
-              newItemList.push({
-                itemName,
-                itemLink,
-                itemImage: itemImage["data-src"],
-                itemPrice,
-                category,
-              });
-            });
-            fullItemList.push(newItemList.slice(16));
-            fullItemList = fullItemList.flat();
-            // self.itemList = fullItemList.concat(newItemList.slice(16))
-            console.log(fullItemList, "trying to flatten it");
-            const randomArr = [];
-            while (randomArr.length < 9) {
-              const budgetItem =
-                fullItemList[Math.floor(Math.random() * fullItemList.length)];
-              if (budgetItem.itemPrice <= 10) {
-                randomArr.push(budgetItem);
-              }
-            }
-            if (count === categories.length) {
-              self.itemList = randomArr;
-              console.log(randomArr, "randomised");
-            }
-          })
-          .catch((err) => {
-            console.log(err, "error");
-          });
-      });
-      //   outside map
+    data() {
+        return {
+            interests: [],
+            itemList: [],
+        };
     },
-  },
+    methods: {
+        handleGenerate() {
+            let self = this;
+            const cheerio = require("cheerio");
+            const categories = this.interests;
+            let fullItemList = [];
+            let count = 0;
+            categories.map((category) => {
+                let url = `https://api.scraperapi.com?api_key=ff689ac484f512bf24e0ab3723745de9&url=https://www.etsy.com/uk/c/${category}`;
+                let newItemList = [];
+                axios(url)
+                    .then(function (response) {
+                    count++;
+                    let html = response.data;
+                    let $ = cheerio.load(html);
+                    $("a.listing-link").each(function () {
+                        const itemName = $(this)
+                            .find("div.v2-listing-card__info")
+                            .find("h2")
+                            .text()
+                            .trim();
+                        const itemLink = $(this).attr("href");
+                        const itemImage = $(this).find("img.wt-width-full").attr();
+                        const itemPrice = $(this)
+                            .find("p.wt-text-title-01.lc-price")
+                            .find("span.currency-value")
+                            .text();
+                        newItemList.push({
+                            itemName,
+                            itemLink,
+                            itemImage: itemImage["data-src"],
+                            itemPrice,
+                            category,
+                        });
+                    });
+                    fullItemList.push(newItemList.slice(16));
+                    fullItemList = fullItemList.flat();
+                    // self.itemList = fullItemList.concat(newItemList.slice(16))
+                    console.log(fullItemList, "trying to flatten it");
+                    const randomArr = [];
+                    while (randomArr.length < 9) {
+                        const budgetItem = fullItemList[Math.floor(Math.random() * fullItemList.length)];
+                        if (budgetItem.itemPrice <= 10) {
+                            randomArr.push(budgetItem);
+                        }
+                    }
+                    if (count === categories.length) {
+                        self.itemList = randomArr;
+                        console.log(randomArr, "randomised");
+                    }
+                })
+                    .catch((err) => {
+                    console.log(err, "error");
+                });
+            });
+            //   outside map
+        },
+    },
+    components: { Header, Navbar }
 };
 </script>
 
