@@ -1,7 +1,7 @@
 <template>
   <Header/>
   <Navbar/>
-  <form class="profile">
+  <div class="profile">
     <h2>Your Account</h2>
     <label>First Name</label>
     <p class="firstName">
@@ -53,21 +53,25 @@
 
     <label>Password</label>
     <p class="password">
-      <button
+      ********
+      <button 
         @click="
           changePassword();
           clicked4 = !clicked4;
         "
-      >
+        >
         Edit
       </button>
-      <input v-if="clicked4" type="password" v-model="password" />
+      <input v-if="clicked4" 
+      type="password"
+      v-model="password" />
+      <p v-if="success">Password changed successfully!</p>
     </p>
     <br />
 
     <label>Birthday: </label>
     <p class="birthday">
-      {{ day }} {{ month }} {{ year }}
+      {{ day }} / {{ month }} / {{ year }}
       <button
         class="submit"
         @click="
@@ -108,9 +112,9 @@
   <label>Interests:</label>
     <div>
       <ul class="interests">
-        <p v-for="interest in interests" :key="interest">
+        <li v-for="interest in interests" :key="interest">
           <p>{{ interest + "&nbsp;" }}</p>
-        </p>
+        </li>
       </ul>
       <button
         class="submit"
@@ -176,7 +180,7 @@
       </div>
     <br />
     <AddFriend/>
-  </form>
+    </div>
 </template>
 
 
@@ -212,6 +216,7 @@ export default {
             clicked13: "",
             friendsList: [],
             friendId: [],
+            success: false,
             
         };
     },
@@ -238,41 +243,40 @@ export default {
     },
     methods: {
         changeName() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 first_name: this.firstName,
             });
         },
         changeLastName() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 last_name: this.lastName,
             });
         },
         changeEmail() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 email: this.email,
             });
         },
         changePassword() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 password: this.password,
-            }).then((res) => {
-                console.log(res.data);
-            }).catch((err) => {
-                console.log(err);
-            });
+            }).then(() => {
+              this.success = true
+            })
+            .catch(() => {})
         },
         changeBirthDay() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 birth_day: this.day,
             });
         },
         changeBirthMonth() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 birth_month: this.month,
             });
         },
         changeBirthYear() {
-            axios.patch("https://be-present.fly.dev/users/d4ee78cb-854f-4034-8d7d-b020106bc968", {
+            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
                 birth_year: this.year
             });
         },
@@ -301,7 +305,7 @@ export default {
 
 <style>
 
-profile {
+.profile {
   max-width: 420px;
   margin: 30px auto;
   background: #f6f7f8;
