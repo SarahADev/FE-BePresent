@@ -98,9 +98,9 @@
     <div>
       <ul class="interests">
         <li v-for="interest in interests" :key="interest">
-          <p>{{ interest + "&nbsp;" }}</p>
+          <p>{{ interest.split("-").join(" ") + "&nbsp;" }}</p>
         </li>
-      </ul>
+      </ul >
       <button
         class="submit"
         @click="
@@ -116,7 +116,8 @@
         Edit
       </button>
       <div class="interest-list" v-if="clicked13">
-        <ul>
+        <ul class="interests">
+          <li>
           <input
             v-if="clicked8"
             type="checkbox"
@@ -124,7 +125,8 @@
             v-model="interests"
           />
           <label>Art & Collectibles</label>
-
+          </li>
+          <li>
           <input
             v-if="clicked9"
             type="checkbox"
@@ -132,6 +134,8 @@
             v-model="interests"
           />
           <label>Jewelry & Accessories</label>
+          </li>
+          <li>
           <input
             v-if="clicked10"
             type="checkbox"
@@ -139,6 +143,8 @@
             v-model="interests"
           />
           <label>Home & Living</label>
+          </li>
+          <li>
           <input
             v-if="clicked11"
             type="checkbox"
@@ -146,6 +152,8 @@
             v-model="interests"
           />
           <label>Clothing & Shoes</label>
+          </li>
+          <li>
           <input
             v-if="clicked12"
             type="checkbox"
@@ -153,6 +161,7 @@
             v-model="interests"
           />
           <label>Toys & Entertainment</label>
+          </li>
         </ul>
       </div>
     </div>
@@ -333,16 +342,17 @@ ul {
   margin-top: 0;
   padding: 0;
 }
-
 ul.interests {
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 22px;
 }
+
 #birthday-button {
   flex-direction: column;
 }
-/* .edit-birthday {
 
-} */
 .add-friend {
   margin-top: 40px;
   margin-bottom: 40px;
