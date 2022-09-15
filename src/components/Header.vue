@@ -7,6 +7,7 @@
 <style>
     .header-logo{
         margin-top: 20px;
+        margin-bottom:-40px;
         width: 70%;
         height:auto;
     }

@@ -72,6 +72,7 @@
       <p class="item-price">£{{ item.itemPrice }}</p>
     </li>
   </ul>
+  <p>Powered By Etsy</p>
 </template>
 
 <script>
@@ -174,7 +175,7 @@ label {
   color: #ea9010;
   display: inline-block;
   margin: 25px 0 15px;
-  font-size: 1em;
+  font-size: 10pt;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: bold;

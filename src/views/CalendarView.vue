@@ -3,10 +3,17 @@
         <div class="calendar">
             <router-view name="calendar"></router-view>
         </div>
+        <div class="navbar">
         <Navbar/>
+        </div>
+
         <CalendarProfiles/>
         <Calendar/>
+
+        <div class="footer">
         <Footer/>
+        </div>
+        <br>
 </template>
 
 <script>
@@ -26,6 +33,12 @@ import Footer from '@/components/Footer.vue';
 <style>
     .calendar-nav{
         display: inline-block;
-
+    }
+    .footer {
+        padding: 35%;
+       
+    }
+    .navbar {
+        
     }
 </style>
