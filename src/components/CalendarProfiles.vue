@@ -6,7 +6,6 @@
             <h5 class="curr-month">{{currentMonth}}</h5>
             </div>
             <ul v-for="(friend, index) in monthBirthdays" :key="index" class="curr-month-list">
-            
                 <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
@@ -40,45 +39,46 @@ import axios from 'axios'
                         const firstName = data.user.first_name
                         const lastName = data.user.last_name
                         const interests = data.user.interests
+                        const friendId = data.user.user_id
                         
                         let monthName = new Date().toLocaleString('default', {month: "long"})
                         this.currentMonth = monthName
                         
                         switch(monthName) {
-                            case 'January' : if(monthNum === '01') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'January' : if(monthNum === '01') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'February' : if(monthNum === '02') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'February' : if(monthNum === '02') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'March' : if(monthNum === '03') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'March' : if(monthNum === '03') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'April' : if(monthNum === '04') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'April' : if(monthNum === '04') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'May' : if(monthNum === '05') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'May' : if(monthNum === '05') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'June' : if(monthNum === '06') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'June' : if(monthNum === '06') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'July' : if(monthNum === '07') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'July' : if(monthNum === '07') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'August' : if(monthNum === '08') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'August' : if(monthNum === '08') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'September' : if(monthNum === '09') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'September' : if(monthNum === '09') {this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'October' : if(monthNum === '10'){this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'October' : if(monthNum === '10'){this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'November' : if(monthNum === '11'){this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'November' : if(monthNum === '11'){this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
-                            case 'December' : if(monthNum === '12'){this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests}),
+                            case 'December' : if(monthNum === '12'){this.monthBirthdays.push({name: `${firstName} ${lastName}`, birthday: dayNum, preferences: interests, friendId}),
                                         this.monthBirthdays.sort((a, b) => a.birthday - b.birthday);}
                                 break;
                             
@@ -87,7 +87,11 @@ import axios from 'axios'
                 })
             })
         },
-       
+        methods: {
+            handleClick (friendId) {
+                this.$router.push({ name: "friend-profile", params: { userId: this.$route.params.userId, friendId } });
+            },
+        },
     }
 </script>
 
