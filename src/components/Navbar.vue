@@ -1,8 +1,10 @@
 <template>
-    <span>
-        <p class="username">currently: {{firstName + " " + lastName}}</p>
-         <button class="logout" @click="handleLogout">Logout</button>
-    </span>
+
+    <h5>Logged in as: {{firstName + " " + lastName}}</h5>
+    <div class="logout-nav">
+        <button class="logout" @click="handleLogout">Logout</button>
+    </div>
+
     <nav class="calendar-nav">
         <button @click="handleClickGetPresents">Get Presents!</button>
         <button @click="handleClickHome">Home</button>
@@ -46,11 +48,11 @@ import axios from 'axios';
 <style>
     .calendar-nav {
         display: flex;
+        justify-content: space-between;
     }
-    .username {
-        font-size: 14pt;
-    }
-    h5 {
-        font-display: 8pt;
+    .logout-nav {
+        display: flex;
+        justify-content: center;
+
     }
 </style>
