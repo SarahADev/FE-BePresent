@@ -17,7 +17,7 @@
     <br />    
     <label>Birthday: </label>
     <p class="birthday">
-      {{ day }} {{ month }} {{ year }}
+      {{ day }} / {{ month }} / {{ year }}
       
     </p>
     <br />
@@ -25,13 +25,17 @@
     <label>Interests:</label>
     <p>
     <div>
-      <p v-for="interest in interests" :key="interest">
-        {{ interest + "&nbsp;" }}
-      </p>
+      <ul class="interests">
+        <li v-for="interest in interests" :key="interest">
+          <p>{{ interest.split("-").join(" ") + "&nbsp;" }}</p>
+        </li>
+      </ul >
     </div>
     </p>
-    <button @click="getPresents()">{{`Find presents for ${firstName}!`}}</button>
-    <button @click="deleteFriend()">Delete friend</button>
+    <div class="buttons">
+    <button class="friend-profile-button" @click="getPresents()">{{`Find presents for ${firstName}!`}}</button>
+    <button class="delete-button" @click="deleteFriend()">Delete friend</button>
+  </div>
   </form>
 
   
@@ -102,13 +106,27 @@ span {
   letter-spacing: 1px;
   font-weight: bold;
 }
-button {
-  background: #4e937a;
+button.delete-button {
+  background: #ea9010;
   border: 0;
   padding: 10px 20px;
-  margin-top: 0;
+  margin:20px;
   color: white;
   border-radius: 20px;
   float: right;
+}
+button.friend-profile-button {
+  background: #4e937a;
+  border: 0;
+  padding: 10px 20px;
+  margin:20px;
+  color: white;
+  border-radius: 20px;
+  float: right;
+}
+.buttons {
+  display:grid;
+  justify-content: center;
+  align-items:flex-end;
 }
 </style>

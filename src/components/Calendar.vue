@@ -1,111 +1,110 @@
 <template>
     <section>
-    <h2>Calendar</h2>
 <div class="calendar-view">
     <div class="month-card">
         <h3>January</h3>
-        <span>01</span>
+        <span class="month-num">01</span>
         <ul v-for="(friend, index) in january" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>February</h3>
-        <span>02</span>
+        <span class="month-num">02</span>
         <ul v-for="(friend, index) in february" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>March</h3>
-        <span>03</span>
+        <span class="month-num">03</span>
         <ul v-for="(friend, index) in march" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>April</h3>
-        <span>04</span>
+        <span class="month-num">04</span>
         <ul v-for="(friend, index) in april" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>May</h3>
-        <span>05</span>
+        <span class="month-num">05</span>
         <ul v-for="(friend, index) in may" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>June</h3>
-        <span>06</span>
+        <span class="month-num">06</span>
         <ul v-for="(friend, index) in june" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>July</h3>
-        <span>07</span>
+        <span class="month-num">07</span>
         <ul v-for="(friend, index) in july" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>August</h3>
-        <span>08</span>
+        <span class="month-num">08</span>
         <ul v-for="(friend, index) in august" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>September</h3>
-        <span>08</span>
+        <span class="month-num">09</span>
         <ul v-for="(friend, index) in september" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>October</h3>
-        <span>08</span>
+        <span class="month-num">10</span>
         <ul v-for="(friend, index) in october" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>November</h3>
-        <span>08</span>
+        <span class="month-num" >11</span>
         <ul v-for="(friend, index) in november" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
     </div>
     <div class="month-card">
         <h3>December</h3>
-        <span>08</span>
+        <span class="month-num">12</span>
         <ul v-for="(friend, index) in december" :key="index" class="birthday-list">
-            <button @click="handleClick(friend.friendId)">
+            <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
             </button>
         </ul>
@@ -212,8 +211,8 @@
         min-height: 30px
     }
     .birthday-list {
-        display: grid;
-        text-align: left;
+        display: flex;
+        text-align: center;
         justify-content: center;    
     }
     span {
@@ -237,5 +236,18 @@
         float:left;
         margin:auto
     }
-   
+    .birthday-button {
+        width:100%;
+        height:auto;
+        color:#ea9010;
+        background-color:white;
+        border: 1px solid #ea9010;
+    }
+   .month-num{
+    font-family: 'Courier New', Courier, monospace;
+    float:top;
+    justify-content: flex-end;
+    color: rgb(239, 239, 239);
+    font-size: 18pt;
+   }
 </style>

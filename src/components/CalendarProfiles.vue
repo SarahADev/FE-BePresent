@@ -1,11 +1,16 @@
 <template>
-    <section>
-        <div>
-            <h5>{{currentMonth}} birthdays:</h5>
+    <section class="upcoming-bd">
+        <div class="upcoming-bd-text">
+            <div class="month-current">
+            <h5 >Upcoming Birthdays in...</h5>
+            <h5 class="curr-month">{{currentMonth}}</h5>
+            </div>
             <ul v-for="(friend, index) in monthBirthdays" :key="index" class="curr-month-list">
-            <li class="listed-friend">
+            
+                <button class="birthday-button" @click="handleClick(friend.friendId)">
                 {{friend.birthday}} | {{friend.name}}
-            </li>
+            </button>
+            
         </ul>
         </div>
     </section>  
@@ -87,5 +92,24 @@ import axios from 'axios'
 </script>
 
 <style>
-   
+   .upcoming-bd{
+    background-color:#f6e0e1;
+    text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        min-height: 30px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+   }
+   .upcoming-bd-text{
+    width: 100%
+   }
+   .curr-month {
+    text-decoration:underline;
+    color:#EF767A;
+    font-size: larger;
+    margin-top: -15px;
+    margin-bottom:1px;
+   }
 </style>
