@@ -49,10 +49,11 @@
           />
           <label>Toys & Entertainment</label>
         </li>
+        <p v-if="interests.length < 1">Please select at least one option</p>
       </ul>
     </div>
     <div class="center">
-      <button class="submit">Generate Gift Ideas</button>
+      <button :disabled = "interests.length < 1 ? '': disabled" class="submit">Generate Gift Ideas</button>
     </div>
   </form>
   <div class="loading" v-if="loading"></div>
