@@ -4,3 +4,14 @@
         
     </div>
 </template>
+
+<script>
+
+    export default {
+        methods: {
+            handleLogout () {
+                this.$router.push('/')
+            },
+        },
+    }
+</script>

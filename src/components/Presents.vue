@@ -72,6 +72,7 @@
       </h3>
       <p class="item-price">£{{ item.itemPrice }}</p>
     </li>
+    <li><button v-if="fullItemList" v-on:click="randomise" class="reroll">Show me more</button></li>
   </ul>
   <p>Powered By Etsy</p>
 </template>
