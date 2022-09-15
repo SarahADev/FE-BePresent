@@ -1,11 +1,14 @@
 <template>
-    <h3>Logged in as: {{firstName + " " + lastName}}</h3>
-    <button @click="handleLogout">Logout</button>
+    <span>
+        <p class="username">currently: {{firstName + " " + lastName}}</p>
+         <button class="logout" @click="handleLogout">Logout</button>
+    </span>
     <nav class="calendar-nav">
         <button @click="handleClickGetPresents">Get Presents!</button>
         <button @click="handleClickHome">Home</button>
         <button @click="handleClickProfile">My Profile</button>
     </nav>
+   
 </template>
 <script>
 import axios from 'axios';
@@ -39,3 +42,15 @@ import axios from 'axios';
             },
     }
 </script>
+
+<style>
+    .calendar-nav {
+        display: flex;
+    }
+    .username {
+        font-size: 14pt;
+    }
+    h5 {
+        font-display: 8pt;
+    }
+</style>
