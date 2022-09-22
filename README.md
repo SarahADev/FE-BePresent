@@ -4,13 +4,13 @@ Be Present is a social platform designed for users to connect with friends and r
 
 This project was built using Vue.js and connects to our backend server using axios, the link to the back end can be found here:
 
-https://github.com/RichardNeat/backend-be-present
+https://github.com/SarahADev/BE-BePresent
 
-This front end utilises a web scraper built using axios and cheerio to retrieve product data from https://www.etsy.com/ and present suggestions to the user based on the interests that they have selected.
+This front end utilises a web scraper built using axios and cheerio to retrieve product data from https://www.etsy.com/ and present suggestions to the user based on their budget and interests that they have selected.
 
 ## Hosted Version Link
 
-https://be-present.netlify.app/?#/
+https://be-present-2022.netlify.app/?#/
 
 ## Project setup
 
