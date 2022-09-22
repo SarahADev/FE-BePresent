@@ -1,12 +1,14 @@
 <template>
   <Header />
   <Navbar />
-  <form @submit="handleGenerate">
-    <p v-if="this.$route.query.name">{{this.$route.query.name + " " + "likes:"}}</p>
-    <ul v-for= "categories in this.$route.query.categories" :key="categories">
-      <li>{{categories}}</li>
+  <form @submit="handleProducts">
+    <p v-if="this.$route.query.name">
+      {{ this.$route.query.name + " " + "likes:" }}
+    </p>
+    <ul v-for="categories in this.$route.query.categories" :key="categories">
+      <li>{{ categories }}</li>
     </ul>
-    <br>
+    <br />
     <label for="budget" placeholder="10">Budget:</label>
     <input type="number" required v-model="budget" />
     <label>Interests:</label>
@@ -53,16 +55,22 @@
       </ul>
     </div>
     <div class="center">
-      <button :disabled = "interests.length < 1 ? '': disabled" class="submit">Generate Gift Ideas</button>
+      <button :disabled="interests.length < 1 ? '' : disabled" class="submit">
+        Generate Gift Ideas
+      </button>
     </div>
   </form>
   <div class="loading" v-if="loading"></div>
   <p v-if="error" class="error">
     Oops! Something went wrong. Please try again...
   </p>
-  
+
   <ul>
-    <li><button v-if="fullItemList" v-on:click="randomise" class="reroll">Show me more</button></li>
+    <li>
+      <button v-if="fullItemList" v-on:click="randomise" class="reroll">
+        Show me more
+      </button>
+    </li>
     <li class="item-container" v-for="(item, index) in itemList" :key="index">
       <img :src="item.itemImage" class="item-img" />
       <h3>
@@ -72,7 +80,11 @@
       </h3>
       <p class="item-price">£{{ item.itemPrice }}</p>
     </li>
-    <li><button v-if="fullItemList" v-on:click="randomise" class="reroll">Show me more</button></li>
+    <li>
+      <button v-if="fullItemList" v-on:click="randomise" class="reroll">
+        Show me more
+      </button>
+    </li>
   </ul>
   <p>Powered By Etsy</p>
 </template>
@@ -93,60 +105,32 @@ export default {
     };
   },
   methods: {
-    handleGenerate() {
-      let self = this;
-      self.error = false;
-      self.loading = true;
-      const cheerio = require("cheerio");
-      const categories = this.interests;
-      self.fullItemList = [];
-      let count = 0;
-      categories.map((category) => {
-        let url = `https://api.scraperapi.com?api_key=ff689ac484f512bf24e0ab3723745de9&url=https://www.etsy.com/uk/c/${category}`;
-        let newItemList = [];
-        axios(url)
-          .then(function (response) {
-            count++;
-            let html = response.data;
-            let $ = cheerio.load(html);
-            $("a.listing-link").each(function () {
-              const itemName = $(this)
-                .find("div.v2-listing-card__info")
-                .find("h2")
-                .text()
-                .trim();
-              const itemLink = $(this).attr("href");
-              const itemImage = $(this).find("img.wt-width-full").attr();
-              const itemPrice = $(this)
-                .find("p.wt-text-title-01.lc-price")
-                .find("span.currency-value")
-                .text();
-              newItemList.push({
-                itemName,
-                itemLink,
-                itemImage: itemImage["data-src"],
-                itemPrice,
-                category,
-              });
-            });
-            self.fullItemList.push(newItemList.slice(16));
-            self.fullItemList = self.fullItemList.flat();
-            if (count === categories.length) {
-              self.randomise();
-            }
-          })
-          .catch((err) => {
-            self.error = true;
-            self.loading = false;
-            console.log("ERROR IN REQUEST", err);
-          });
-      });
+    handleProducts() {
+      console.log("handling get req");
+      this.error = false;
+      this.loading = true
+      console.log(this.interests,' categories')
+      axios
+        .post("https://bepresent.fly.dev/users/products", {
+          categories: this.interests
+        })
+        .then((response) => {
+          this.fullItemList = response.data
+          this.randomise()
+        })
+        .catch((err) => {
+          this.error = true;
+          console.log(err);
+        });
     },
     randomise() {
       if (this.fullItemList) {
         const randomArr = [];
         while (randomArr.length < 9) {
-          const budgetItem = this.fullItemList[Math.floor(Math.random() * this.fullItemList.length)];
+          const budgetItem =
+            this.fullItemList[
+              Math.floor(Math.random() * this.fullItemList.length)
+            ];
           if (this.budget < 0 || this.budget === null) {
             randomArr.push(budgetItem);
           } else if (budgetItem.itemPrice <= this.budget) {
@@ -154,7 +138,7 @@ export default {
           }
         }
         this.itemList = randomArr;
-        this.loading = false
+        this.loading = false;
       } else {
         console.log("cannot reload without generating results");
       }
@@ -258,7 +242,7 @@ ul.interests {
   }
 }
 
-.reroll{
+.reroll {
   font-size: 1em;
 }
 </style>

@@ -60,7 +60,7 @@ export default {
     },
     beforeMount() {
         axios
-            .get(`https://be-present.fly.dev/users/${this.$route.params.friendId}`)
+            .get(`https://bepresent.fly.dev/users/${this.$route.params.friendId}`)
             .then(({ data }) => {
             this.firstName = data.user.first_name;
             this.lastName = data.user.last_name;
@@ -72,7 +72,7 @@ export default {
     },
     methods: {
         deleteFriend() {
-            axios.delete(`https://be-present.fly.dev/users/${this.$route.params.userId}/connections`, {
+            axios.delete(`https://bepresent.fly.dev/users/${this.$route.params.userId}/connections`, {
                 data: {
                     connection_id: this.$route.params.friendId
                 }

@@ -35,7 +35,8 @@ import Footer from '@/components/Footer.vue';
         display: inline-block;
     }
     .footer {
-        padding: 35%;
+        padding: 5px;
+        margin: 5px auto;
        
     }
     .navbar {

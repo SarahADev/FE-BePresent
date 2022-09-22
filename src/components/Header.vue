@@ -6,9 +6,8 @@
 
 <style>
     .header-logo{
-        margin-top: 20px;
-        margin-bottom:-40px;
-        width: 70%;
+        margin: 5px auto;
+        max-width: 350px;
         height:auto;
     }
 </style>

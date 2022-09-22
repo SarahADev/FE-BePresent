@@ -27,12 +27,12 @@ import axios from 'axios'
         beforeMount() {
             axios
             .get(
-                `https://be-present.fly.dev/users/${this.$route.params.userId}`
+                `https://bepresent.fly.dev/users/${this.$route.params.userId}`
             )
             .then(({data}) => {
                 this.friendId = data.user.connections
                 this.friendId.map((friend, index) => {
-                    axios.get(`https://be-present.fly.dev/users/${friend}`)
+                    axios.get(`https://bepresent.fly.dev/users/${friend}`)
                     .then(({data}) => {
                         const monthNum = data.user.birth_month
                         const dayNum = data.user.birth_day
@@ -105,6 +105,8 @@ import axios from 'axios'
     display: flex;
     justify-content: center;
     align-content: center;
+    max-width:420px;
+    margin: 0px auto;
    }
    .upcoming-bd-text{
     width: 100%

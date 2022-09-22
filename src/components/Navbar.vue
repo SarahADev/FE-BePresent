@@ -27,7 +27,7 @@ import axios from 'axios';
             }
         },
         beforeMount() {
-            axios.get(`https://be-present.fly.dev/users/${this.$route.params.userId}`)
+            axios.get(`https://bepresent.fly.dev/users/${this.$route.params.userId}`)
                 .then(({ data }) => {
                 this.firstName = data.user.first_name;
                 this.lastName = data.user.last_name;
@@ -58,11 +58,7 @@ import axios from 'axios';
         
     }
     .calendar-nav {
-        margin-top: -80px;
-        margin-right: 20px;
-        margin-left: -40px;
-        width: 100%;
-       height: 20px;
+        margin: 5px auto;
     }
     nav {
         display: inline;
@@ -82,8 +78,7 @@ import axios from 'axios';
         display: flex;
         align-content: center;
         justify-content: center;
-        margin-top: 2em;
-        margin-bottom:2em;
+        margin: 10px auto;
     }
     h5.user-name {
         font-size: 8pt;

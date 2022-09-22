@@ -25,7 +25,7 @@ export default {
     addFriend() {
       axios
         .patch(
-          `https://be-present.fly.dev/users/${this.$route.params.userId}/connections`,
+          `https://bepresent.fly.dev/users/${this.$route.params.userId}/connections`,
           {
             connections: this.email,
           }

@@ -135,12 +135,12 @@
         beforeMount() {
             axios
             .get(
-                `https://be-present.fly.dev/users/${this.$route.params.userId}`
+                `https://bepresent.fly.dev/users/${this.$route.params.userId}`
             )
             .then(({data}) => {
                 this.friends = data.user.connections
                 this.friends.map((friend) => {
-                    axios.get(`https://be-present.fly.dev/users/${friend}`)
+                    axios.get(`https://bepresent.fly.dev/users/${friend}`)
                     .then(({data}) => {
                         const friendId = data.user.user_id
                         const monthNum = data.user.birth_month

@@ -79,7 +79,7 @@
             },
             
             async addProfile(){
-                await axios.patch(`https://be-present.fly.dev/users/${userId}/profiles`, 
+                await axios.patch(`https://bepresent.fly.dev/users/${userId}/profiles`, 
                 {
                     name: this.name,
                     birth_day: this.day,

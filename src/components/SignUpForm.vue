@@ -108,7 +108,7 @@ export default {
     async addUser() {
       this.error = false;
       await axios
-        .post("https://be-present.fly.dev/users", {
+        .post("https://bepresent.fly.dev/users", {
           first_name: this.firstName,
           last_name: this.lastName,
           email: this.email,

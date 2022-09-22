@@ -44,7 +44,7 @@ export default {
   methods: {
     async checkUser() {
       await axios
-        .post("https://be-present.fly.dev/users/login", {
+        .post("https://bepresent.fly.dev/users/login", {
           email: this.email,
           password: this.password,
         })

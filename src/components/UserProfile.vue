@@ -218,7 +218,7 @@ export default {
     },
     beforeMount() {
         axios
-            .get(`https://be-present.fly.dev/users/${this.$route.params.userId}`)
+            .get(`https://bepresent.fly.dev/users/${this.$route.params.userId}`)
             .then(({ data }) => {
             this.firstName = data.user.first_name;
             this.lastName = data.user.last_name;
@@ -229,7 +229,7 @@ export default {
             this.year = data.user.birth_year;
             this.interests = data.user.interests;
             data.user.connections.map((connection) => {
-                axios.get(`https://be-present.fly.dev/users/${connection}`).then(({ data }) => {
+                axios.get(`https://bepresent.fly.dev/users/${connection}`).then(({ data }) => {
                     this.friendsList.push(`${data.user.first_name} ${data.user.last_name}`);
                     this.friendId.push(connection);
                 });
@@ -244,22 +244,22 @@ export default {
           this.changeBirthYear()
         },
         changeName() {
-            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
+            axios.patch(`https://bepresent.fly.dev/users/${this.$route.params.userId}`, {
                 first_name: this.firstName,
             });
         },
         changeLastName() {
-            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
+            axios.patch(`https://bepresent.fly.dev/users/${this.$route.params.userId}`, {
                 last_name: this.lastName,
             });
         },
         changeEmail() {
-            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
+            axios.patch(`https://bepresent.fly.dev/users/${this.$route.params.userId}`, {
                 email: this.email,
             });
         },
         changePassword() {
-            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
+            axios.patch(`https://bepresent.fly.dev/users/${this.$route.params.userId}`, {
                 password: this.password,
             }).then(() => {
               this.success = true
@@ -267,23 +267,23 @@ export default {
             .catch(() => {})
         },
         changeBirthDay() {
-            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
+            axios.patch(`https://bepresent.fly.dev/users/${this.$route.params.userId}`, {
                 birth_day: this.day,
             });
         },
         changeBirthMonth() {
-            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
+            axios.patch(`https://bepresent.fly.dev/users/${this.$route.params.userId}`, {
                 birth_month: this.month,
             });
         },
         changeBirthYear() {
-            axios.patch(`https://be-present.fly.dev/users/${this.$route.params.userId}`, {
+            axios.patch(`https://bepresent.fly.dev/users/${this.$route.params.userId}`, {
                 birth_year: this.year
             });
         },
         changeInterests() {
       axios.patch(
-        `https://be-present.fly.dev/users/${this.$route.params.userId}`,
+        `https://bepresent.fly.dev/users/${this.$route.params.userId}`,
         {
           interests: this.interests,
         }

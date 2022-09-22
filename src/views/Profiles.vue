@@ -26,7 +26,7 @@
         methods: {
                 
             async getUserByEmail() {
-                let result = await axios.get('https://be-present.fly.dev/users')
+                let result = await axios.get('https://bepresent.fly.dev/users')
             },
             handleSubmit(){
 
